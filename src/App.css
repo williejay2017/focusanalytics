@@ -1,0 +1,44 @@
+.Focus-App{
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Arial' ;
+    line-height: 1.42857;
+    color: lightgray;
+}
+
+
+.Focus-sidenav {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
+    top: 0;
+    right: -100%;
+    box-sizing: border-box;
+    padding: 0 7px 5px;
+    background-color: #2C3539;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: 0.5s;
+    opacity: 0.2;
+    filter: alpha(opacity=50);
+}
+
+.Focus-sidenav:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+.Focus-sidenav .dateContainer{
+    display: inline-block;
+    vertical-align: top;
+    height: 150px; /*needs to be the same height as .controlPanel*/
+    box-sizing: border-box;
+    width : 50%; /*other percentage is .controlPanelr*/
+}
+
+.Focus-sidenav .dateLabel {
+    color: inherit;
+    display: inline-block;
+    width: 50%;
+}
