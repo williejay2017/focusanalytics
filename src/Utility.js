@@ -1,22 +1,24 @@
 var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata';
 var dataArray = [];
-var dateObject = {startDate: null, endDate: null};
+var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
 var startAppend = 'startTime=';
 var endAppend = 'endTime=';
 var urlAppend = '?pageUrl=';
 
 class Utility {
 
-    static getDates(startDate,endDate){
-        dateObject.startDate = startDate;
-        dateObject.endDate = endDate;
+    static getDates(timeObj){
+        queryTimeObject.startDate = timeObj.startDay;
+        queryTimeObject.endDate = timeObj.endDay;
+        queryTimeObject.startTime = timeObj.startTime;
+        queryTimeObject.endTime = timeObj.endTime;
     }
 
 
     static getData() {
-        var url = urlBase + urlAppend + window.location.href + '&' + 
-        startAppend + dateObject.startDate + '&' + endAppend + dateObject.endDate;
-        console.log(dateObject);
+        // var url = urlBase + urlAppend + window.location.href + '&' + 
+        // startAppend + dateObject.startDate + '&' + endAppend + dateObject.endDate;
+        console.log(queryTimeObject);
         var xhr = new XMLHttpRequest();
         
         
