@@ -1,9 +1,7 @@
-var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata';
+var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata?query=';
 var dataArray = [];
 var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
-var startAppend = 'startTime=';
-var endAppend = 'endTime=';
-var urlAppend = '?pageUrl=';
+
 
 class Utility {
 
@@ -15,26 +13,34 @@ class Utility {
     }
 
 
-    static getData() {
-        // var url = urlBase + urlAppend + window.location.href + '&' + 
-        // startAppend + dateObject.startDate + '&' + endAppend + dateObject.endDate;
-        console.log(queryTimeObject);
+    static getData(callback, app) {
+        
+        var urlObject = {startDateTime: queryTimeObject.startDate + queryTimeObject.startTime, 
+            endDateTime: queryTimeObject.endDate + queryTimeObject.endTime, pageUrl: window.location.href};
+        
+        dataArray.push(JSON.stringify(urlObject));
+        
+        var jsonUrlObject = encodeURIComponent(JSON.stringify(dataArray));
+        
         var xhr = new XMLHttpRequest();
-        
-        
-        console.log('Test 1');
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                // var responseData = xhr.responseText;
-                // var json = JSON.parse(responseData);
-                // console.log(json);
-				console.log(xhr.responseText);	
+                var responseData = xhr.responseText;
+                var json;
+                json = JSON.parse(JSON.parse(responseData));
+                if(json.length === 0) { 
+					alert("No data could be retrieved for parameters specified.");
+                }
+                callback(json, app); 
             }
             
         }
-        xhr.open("GET", urlBase);
+        xhr.open("GET", urlBase + jsonUrlObject);
         xhr.send();
+        dataArray = [];
     }
+
+    
 }
 
 export default Utility;

@@ -1,9 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+
 
 var interactionContainer = [];
 var startTime = Date.now();
-var dashVisible = false;
+
 class UserInteraction {
     constructor(event, type) {
         this.xPosition = event.clientX;

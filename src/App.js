@@ -16,7 +16,8 @@ class App extends Component {
       format:'h:mm A',
       millisecondPerMin: 60000,
       millisecondPerHour: 3600000,
-      timeObject: {startTime:0,endTime:0, startDay:0,endDay:0}
+      heatMapData : []
+      
     };
     this.calendarHandleChangeStart = this.calendarHandleChangeStart.bind(this);
     this.calendarHandleChangeEnd = this.calendarHandleChangeEnd.bind(this);
@@ -24,19 +25,37 @@ class App extends Component {
     this.changeStartTimeValue = this.changeStartTimeValue.bind(this);
   }
 
+  timeObject = {
+    startTime:0,
+    endTime:0, 
+    startDay:0,
+    endDay:0
+  }
+
+  
+
   handleSubmit(event) {
     //Prevents refresh
     event.preventDefault();
-    
+
     //Setting time and date values for query
-    this.state.timeObject.startDay = this.state.startDate.valueOf();
-    this.state.timeObject.endDay = this.state.endDate.valueOf();
-    Utility.getDates(this.state.timeObject);
+    this.timeObject.startDay = this.state.startDate.startOf('day').valueOf();
+    this.timeObject.endDay = this.state.endDate.startOf('day').valueOf();
+    Utility.getDates(this.timeObject);
     this.retreiveData();
   }
 
-  retreiveData(){
-    Utility.getData();
+  retreiveData() {
+    Utility.getData(function(value , app) {
+      try{
+          app.setState({
+            heatMapData: value.data
+          });
+        }catch(err){
+        console.error("Data Callback Error: " + err);
+      }
+    
+    },this);
   }
 
   calendarHandleChangeStart = (date) => {
@@ -69,7 +88,7 @@ class App extends Component {
             addHours = 0 * this.state.millisecondPerHour;
         }
         
-        this.state.timeObject.startTime = addHours + addedMinutes;
+        this.timeObject.startTime = addHours + addedMinutes;
   }
 
   changeEndTimeValue = (value) => {
@@ -91,7 +110,7 @@ class App extends Component {
             addHours = 0 * this.state.millisecondPerHour;
         }
         
-        this.state.timeObject.endTime = addHours + addedMinutes;
+        this.timeObject.endTime = addHours + addedMinutes;
 
   }
 
@@ -103,7 +122,8 @@ class App extends Component {
           <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
             calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
             changeStartTimeValue = {this.changeStartTimeValue}  changeEndTimeValue = {this.changeEndTimeValue}/>
-
+          <br/>
+          <hr/>
 
         </div>
       </div>

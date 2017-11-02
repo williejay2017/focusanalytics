@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "heatmap.js": "^2.0.5",
     "heatmapjs": "^2.0.2",
     "moment": "^2.19.1",
     "rc-time-picker": "^3.0.0",
