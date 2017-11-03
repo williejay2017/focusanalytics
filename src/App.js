@@ -16,7 +16,9 @@ class App extends Component {
       format:'h:mm A',
       millisecondPerMin: 60000,
       millisecondPerHour: 3600000,
-      heatMapData : []
+      heatMapData : [],
+      processData: [],
+      dataVersion: 0
       
     };
     this.calendarHandleChangeStart = this.calendarHandleChangeStart.bind(this);
@@ -41,22 +43,26 @@ class App extends Component {
     //Setting time and date values for query
     this.timeObject.startDay = this.state.startDate.startOf('day').valueOf();
     this.timeObject.endDay = this.state.endDate.startOf('day').valueOf();
-    Utility.getDates(this.timeObject);
+    Utility.setDates(this.timeObject);
     this.retreiveData();
   }
 
   retreiveData() {
-    Utility.getData(function(value , app) {
+    Utility.getData(function(value, app){
       try{
-          app.setState({
-            heatMapData: value.data
-          });
+          // app.setState({
+          //   heatMapData: value.data, 
+          //   dataVersion: app.state.dataVersion + 1
+          // });
+          console.log(value);
+          
         }catch(err){
         console.error("Data Callback Error: " + err);
       }
-    
     },this);
   }
+
+  
 
   calendarHandleChangeStart = (date) => {
    this.setState({startDate: date});
