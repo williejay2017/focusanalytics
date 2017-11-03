@@ -73,4 +73,4 @@ function storeData() {
 window.addEventListener('keydown', toggleDashboard);
 window.addEventListener('unload', captureBeforeCloseEvent);
 document.addEventListener('click', getClickingInformation);
-//window.setInterval(testStoreData, 5000);
+

@@ -50,10 +50,10 @@ class App extends Component {
   retreiveData() {
     Utility.getData(function(value, app){
       try{
-          // app.setState({
-          //   heatMapData: value.data, 
-          //   dataVersion: app.state.dataVersion + 1
-          // });
+          app.setState({
+             heatMapData: value.data, 
+             dataVersion: app.state.dataVersion + 1
+           });
           console.log(value);
           
         }catch(err){
@@ -72,8 +72,6 @@ class App extends Component {
     this.setState({endDate: date});
   }
   
-
-  //unworking because time doesn't work
   changeStartTimeValue = (value) => {
     
         var parseTime = value.format(this.state.format);
