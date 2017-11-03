@@ -40,5 +40,34 @@
 .Focus-sidenav .dateLabel {
     color: inherit;
     display: inline-block;
-    width: 50%;
+    width: 35%;
+}
+
+.Focus-sidenav input[type="text"] {
+    color: black;
+    border-radius: 25px;
+    height: 20px;
+    width: 100px;
+    box-sizing: border-box;
+    padding: 4px 7px;
+    font-size: 12px;
+    border-width: 1px;
+    margin-bottom: 5px;
+}
+
+.Focus-sidenav input[type="submit"]{
+    color: #FFFFFF;
+    background-color:lightblue;
+    box-sizing: border-box;
+    height: 30px;
+    width: 70px;
+    border-radius: 20px;
+    border-width: 0px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 5px;
+}
+
+.rc-time-picker-panel {
+    z-index: 100002 !important; /*Must stay same relative to dashboard, heatmap, loading, and displayHelp*/
 }

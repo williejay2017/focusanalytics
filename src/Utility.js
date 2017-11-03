@@ -1,38 +1,69 @@
-var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata';
-var dataArray = [];
-var dateObject = {startDate: null, endDate: null};
-var startAppend = 'startTime=';
-var endAppend = 'endTime=';
-var urlAppend = '?pageUrl=';
+var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
+
 
 class Utility {
 
-    static getDates(startDate,endDate){
-        dateObject.startDate = startDate;
-        dateObject.endDate = endDate;
+    static setDates(timeObj){
+        queryTimeObject.startDate = timeObj.startDay;
+        queryTimeObject.endDate = timeObj.endDay;
+        queryTimeObject.startTime = timeObj.startTime;
+        queryTimeObject.endTime = timeObj.endTime;
     }
 
+    static processData(data){
+        var heatMapData = [];
+        var i;
+        var type;
+        for(i = 0; i < data.length; i++){
+            type = data[i].type;
+            if(type === 'click'){
+                let x = parseInt(data[i].xPosition,10);
+                let y = parseInt(data[i].yPosition,10);
+                heatMapData.push({x:x,y:y,value:1});
+            }
+        }
 
-    static getData() {
-        var url = urlBase + urlAppend + window.location.href + '&' + 
-        startAppend + dateObject.startDate + '&' + endAppend + dateObject.endDate;
-        console.log(dateObject);
+        //add more as we see fit (labels etc.)
+        var processedData = {
+            heatMapData : heatMapData
+        }
+       
+        return processedData;
+    }
+
+    static getData(callback, app) {
+        var dataArray = [];
+        var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata?query=';
+        var urlObject = {startDateTime: queryTimeObject.startDate + queryTimeObject.startTime, 
+            endDateTime: queryTimeObject.endDate + queryTimeObject.endTime, pageUrl: window.location.href};
+        
+        dataArray.push(JSON.stringify(urlObject));
+        
+        var jsonUrlObject = encodeURIComponent(JSON.stringify(dataArray));
+        
+        var json;
         var xhr = new XMLHttpRequest();
-        
-        
-        console.log('Test 1');
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                // var responseData = xhr.responseText;
-                // var json = JSON.parse(responseData);
-                // console.log(json);
-				console.log(xhr.responseText);	
+                var responseData = xhr.responseText;
+                json = JSON.parse(JSON.parse(responseData));
+                //console.log(json.length);
+                //console.log(json[1].xPosition);
+                if(json.length === 0) { 
+					alert("No data could be retrieved for parameters specified.");
+                }
+                callback(json, app); 
             }
             
         }
-        xhr.open("GET", urlBase);
+        xhr.open("GET", urlBase + jsonUrlObject);
         xhr.send();
+        dataArray = [];
+                        
+
     }
+
+    
 }
 
 export default Utility;

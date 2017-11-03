@@ -10,13 +10,17 @@ class Calendar extends React.Component{
         this.state = {
             startDate: props.startDate,
             endDate: props.endDate,
+            startTime: props.startTime,
+            endTime: props.endTime
         };
     }
 
     componentWillReceiveProps = (nextProps) => {
         this.setState({
             startDate: nextProps.startDate,
-            endDate: nextProps.endDate
+            endDate: nextProps.endDate,
+            startTime: nextProps.startTime,
+            endTime: nextProps.endTime
         });
     }
 
@@ -24,57 +28,16 @@ class Calendar extends React.Component{
 
     format = 'h:mm A';
 
-    millisecondPerMin = 60000;
-			
-    millisecondPerHour = 3600000;
+    disableMinutes = () => {
+        var minuteRestrictionArray = [];
+        for (var i = 0; i < 60; i++) {
 
-
-    getStartTimeValue(value) {
-
-        var parseTime = value.format(this.format);
-        var seperators = [":", " "];
-        var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-        var addedMinutes = parseInt(splitTest[1], 10) * this.millisecondPerMin;
-        var addHours;
-
-        if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-            addHours = parseInt(splitTest[0], 10) * this.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-            var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            var position = tempArray[parseInt(splitTest[0], 10)];
-            addHours = position * this.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-            addHours = 12 * this.millisecondPerHour;
-        } else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-            addHours = 0 * this.millisecondPerHour;
+            if (i !== 0 && i !== 30) {
+                minuteRestrictionArray.push(i);
+            }
         }
-        console.log(addHours + addedMinutes);
-        //TODO something with add hours and add minutes
+        return minuteRestrictionArray;
     }
-
-
-    getEndTimeValue(value) {
-
-		var parseTime = value.format(this.format);
-		var seperators = [":", " "];
-		var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-		var addedMinutes = parseInt(splitTest[1], 10) * this.millisecondPerMin;
-		var addHours;
-
-		if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-			addHours = parseInt(splitTest[0], 10) * this.millisecondPerHour;
-		} else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-			var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-			var position = tempArray[parseInt(splitTest[0], 10)];
-			addHours = position * this.millisecondPerHour;
-		} else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-			addHours = 12 * this.millisecondPerHour;
-		} else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-			addHours = 0 * this.millisecondPerHour;
-		}
-        
-        //TODO
-	}
 
     render(){
         return(
@@ -91,9 +54,9 @@ class Calendar extends React.Component{
 
                         />
                         <br></br>
-                         {/* <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment} 
-                            onChange={this.props.changeTimeValue} format={this.format} allowEmpty={false} 
-                            showSecond={false} use12Hours hideDisabledOptions /> */}
+                          <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment} 
+                            onChange={this.props.changeStartTimeValue} format={this.format} allowEmpty={false} 
+                            showSecond={false} className="xxx" use12Hours hideDisabledOptions /> 
                     </div>
 
                     <div className="dateLabel">
@@ -107,6 +70,9 @@ class Calendar extends React.Component{
 
                         />
                         <br></br>
+                         <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment} 
+                            onChange={this.props.changeEndTimeValue} format={this.format} allowEmpty={false} 
+                            showSecond={false} className="xxx" use12Hours hideDisabledOptions /> 
                     </div>
 
 

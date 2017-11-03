@@ -1,9 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+
 
 var interactionContainer = [];
 var startTime = Date.now();
-var dashVisible = false;
+
 class UserInteraction {
     constructor(event, type) {
         this.xPosition = event.clientX;
@@ -25,12 +24,26 @@ function toggleDashboard(event) {
     if (event.keyCode === 90 && event.ctrlKey) {
         document.removeEventListener('click',getClickingInformation);
         document.getElementById("sidenav").style.right = "0";
+        if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
+                document.getElementsByClassName("react-datepicker")[0].style.display = 'inline-block';
+            }
+        if (document.getElementsByClassName("rc-time-picker-panel")[0] !== undefined) {
+                document.getElementsByClassName("rc-time-picker-panel")[0].style.display = 'inline-block';
+        }
     }
 
     if (event.keyCode === 88 && event.ctrlKey) {
         document.addEventListener('click', getClickingInformation);
         document
             .getElementById("sidenav").style.right = "-100%";
+            //hide calendar datepicker popup whn the dashboard closes
+            if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
+                document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
+            }
+            if (document.getElementsByClassName("rc-time-picker-panel")[0] !== undefined) {
+                document.getElementsByClassName("rc-time-picker-panel")[0].style.display = 'none';
+
+            }
     }
 }
 
@@ -60,4 +73,4 @@ function storeData() {
 window.addEventListener('keydown', toggleDashboard);
 window.addEventListener('unload', captureBeforeCloseEvent);
 document.addEventListener('click', getClickingInformation);
-//window.setInterval(testStoreData, 5000);
+
