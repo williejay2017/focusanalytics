@@ -4,13 +4,12 @@ var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
 class Utility {
 
     static setDates(timeObj){
-        queryTimeObject.startDate = timeObj.startDay;
-        queryTimeObject.endDate = timeObj.endDay;
         queryTimeObject.startTime = timeObj.startTime;
         queryTimeObject.endTime = timeObj.endTime;
     }
 
     static processData(data){
+        console.log(data);
         var heatMapData = [];
         var i;
         var type;
@@ -36,7 +35,7 @@ class Utility {
         var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata?query=';
         var urlObject = {startDateTime: queryTimeObject.startDate + queryTimeObject.startTime, 
             endDateTime: queryTimeObject.endDate + queryTimeObject.endTime, pageUrl: window.location.href};
-        
+        console.log(urlObject);
         dataArray.push(JSON.stringify(urlObject));
         
         var jsonUrlObject = encodeURIComponent(JSON.stringify(dataArray));

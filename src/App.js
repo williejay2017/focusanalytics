@@ -4,6 +4,7 @@ import './DataTracker.js';
 import Utility from './Utility.js';
 import moment from 'moment';
 import Calendar from './Calendar.js';
+// import Heatmap from './Heatmap.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -18,6 +19,7 @@ class App extends Component {
       millisecondPerHour: 3600000,
       heatMapData : [],
       processData: [],
+      version: 0,
       dataVersion: 0
       
     };
@@ -44,25 +46,26 @@ class App extends Component {
     this.timeObject.startDay = this.state.startDate.startOf('day').valueOf();
     this.timeObject.endDay = this.state.endDate.startOf('day').valueOf();
     Utility.setDates(this.timeObject);
-    this.retreiveData();
+    this.dataHandler();
   }
 
-  retreiveData() {
+  dataHandler() {
     Utility.getData(function(value, app){
       try{
-          app.setState({
-             heatMapData: value.data, 
-             dataVersion: app.state.dataVersion + 1
-           });
-          console.log(value);
-          
-        }catch(err){
-        console.error("Data Callback Error: " + err);
+          app.setData(value);
+         }catch(err){
+          console.error("Data Callback Error: " + err);
       }
     },this);
   }
 
-  
+  setData(data){
+
+    var filterData = Utility.processData(data);
+    //set the rest, react will render based on values passed into props
+    this.setState({heatMapData: filterData.heatMapData});
+    
+  }
 
   calendarHandleChangeStart = (date) => {
    this.setState({startDate: date});
@@ -73,49 +76,11 @@ class App extends Component {
   }
   
   changeStartTimeValue = (value) => {
-    
-        var parseTime = value.format(this.state.format);
-        var seperators = [":", " "];
-        var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-        var addedMinutes = parseInt(splitTest[1], 10) * this.state.millisecondPerMin;
-        var addHours;
-
-        if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-            addHours = parseInt(splitTest[0], 10) * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-            var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            var position = tempArray[parseInt(splitTest[0], 10)];
-            addHours = position * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-            addHours = 12 * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-            addHours = 0 * this.state.millisecondPerHour;
-        }
-        
-        this.timeObject.startTime = addHours + addedMinutes;
+    this.timeObject.startTime = value.valueOf();
   }
 
   changeEndTimeValue = (value) => {
-    var parseTime = value.format(this.state.format);
-        var seperators = [":", " "];
-        var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-        var addedMinutes = parseInt(splitTest[1], 10) * this.state.millisecondPerMin;
-        var addHours;
-
-        if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-            addHours = parseInt(splitTest[0], 10) * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-            var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            var position = tempArray[parseInt(splitTest[0], 10)];
-            addHours = position * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-            addHours = 12 * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-            addHours = 0 * this.state.millisecondPerHour;
-        }
-        
-        this.timeObject.endTime = addHours + addedMinutes;
-
+    this.timeObject.endTime = value.valueOf();
   }
 
   render() {
@@ -130,6 +95,7 @@ class App extends Component {
           <hr/>
 
         </div>
+        {/* <Heatmap data={this.state.heatMapData} dataVersion={this.state.dataVersion}/> */}
       </div>
     );
   }
