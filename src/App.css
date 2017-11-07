@@ -9,14 +9,14 @@
 
 .Focus-sidenav {
     height: 100%;
-    width: 100%;
+    width: 600px;
     position: fixed;
     z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
     top: 0;
-    right: -100%;
+    right: -600px;
     box-sizing: border-box;
     padding: 0 7px 5px;
-    background-color: #2C3539;
+    background-color:gray;
     overflow-x: hidden;
     overflow-y: hidden;
     transition: 0.5s;
@@ -40,7 +40,7 @@
 .Focus-sidenav .dateLabel {
     color: inherit;
     display: inline-block;
-    width: 35%;
+    width: 50%;
 }
 
 .Focus-sidenav input[type="text"] {
@@ -57,7 +57,7 @@
 
 .Focus-sidenav input[type="submit"]{
     color: #FFFFFF;
-    background-color:lightblue;
+    background-color:green;
     box-sizing: border-box;
     height: 30px;
     width: 70px;
@@ -70,4 +70,18 @@
 
 .rc-time-picker-panel {
     z-index: 100002 !important; /*Must stay same relative to dashboard, heatmap, loading, and displayHelp*/
+}
+
+.react-datepicker {
+    font-size: 12px !important;
+}
+
+.react-datepicker__day-name, .react-datepicker__day {
+  width: 1.7em !important;
+  line-height: 1.7em !important;
+  margin: 0.166em !important;
+}
+
+.react-datepicker__current-month {
+  font-size: 1em !important;
 }

@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.6.0",
     "heatmap.js": "^2.0.5",
-    "heatmapjs": "^2.0.2",
     "moment": "^2.19.1",
     "rc-time-picker": "^3.0.0",
-    "react": "^16.0.0",
+    "react": "^15.6.1",
+    "react-chartjs-2": "^2.1.0",
     "react-datepicker": "^0.56.0",
-    "react-dom": "^16.0.0",
+    "react-dom": "^15.6.1",
     "react-heatmap": "^1.0.6",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "twix": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

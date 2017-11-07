@@ -1,46 +1,29 @@
 import React from 'react';
-import ReactHeatmap from './react-heatmap';
+import ReactHeatmap from 'react-heatmap';
 
 
 class Heatmap extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            data: props.data,
             dataVersion: props.dataVersion,
             width: this.getPageWidth(),
-            height: this.getpageHeight(),
-            key: 0,
-            display: props.display
+			height: this.getpageHeight(),
         }
     }
     
     componentWillReceiveProps(nextProps) {
-        var newWidth = this.getPageWidth();
-		var newHeight = this.getpageHeight();
-		if (newWidth !== this.state.width || newHeight !== this.state.height) {
-            this.setState({
-                width: newWidth, 
-                height: newHeight
-            });
-        }
-
-        if (nextProps.display !== this.state.display) {
-            this.setState({ 
-                display: nextProps.display, 
-                key: this.state.key + 1 
-            }); 
-		}
-        
         if (nextProps.dataVersion > this.state.dataVersion) {
             this.setState({ 
-                data: this.displayData(nextProps.data), 
+                data: nextProps.data, 
                 dataVersion: nextProps.dataVersion 
             });
 		}
     }
     
-    getPageWidth() {
+    
+	getPageWidth() {
 		var pageWidth = document.body.scrollWidth;
 		return pageWidth !== undefined && pageWidth !== 0 ? pageWidth : window.innerWidth;
 	}
@@ -50,22 +33,17 @@ class Heatmap extends React.Component{
 		return pageHeight !== undefined && pageHeight !== 0 ? pageHeight : window.innerHeight;
 	}
 
-    displayData(dataArray) {
-        if (!dataArray.length) 
-            {
-			    return dataArray;
-            }
-            //TODO
-    }
-
 
 
     render(){
+        console.log(this.props.data);
         return (
-            <div>
+            <div style={{ width: this.state.width, height: this.state.height }}>
                 <ReactHeatmap max={5} data={this.state.data} unit={"pixels"} />
             </div>
         );
     }
 
 }
+
+export default Heatmap;

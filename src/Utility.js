@@ -4,12 +4,14 @@ var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
 class Utility {
 
     static setDates(timeObj){
+        queryTimeObject.startDate = timeObj.startDate;
         queryTimeObject.startTime = timeObj.startTime;
         queryTimeObject.endTime = timeObj.endTime;
+        queryTimeObject.endDate = timeObj.endDate;
     }
 
     static processData(data){
-        console.log(data);
+        var regionData = [];
         var heatMapData = [];
         var i;
         var type;
@@ -19,12 +21,14 @@ class Utility {
                 let x = parseInt(data[i].xPosition,10);
                 let y = parseInt(data[i].yPosition,10);
                 heatMapData.push({x:x,y:y,value:1});
+                regionData.push({state: data[i].state, region: data[i].region});
             }
         }
 
         //add more as we see fit (labels etc.)
         var processedData = {
-            heatMapData : heatMapData
+            heatMapData : heatMapData,
+            regionData : regionData
         }
        
         return processedData;
@@ -35,7 +39,6 @@ class Utility {
         var urlBase = 'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/getdata?query=';
         var urlObject = {startDateTime: queryTimeObject.startDate + queryTimeObject.startTime, 
             endDateTime: queryTimeObject.endDate + queryTimeObject.endTime, pageUrl: window.location.href};
-        console.log(urlObject);
         dataArray.push(JSON.stringify(urlObject));
         
         var jsonUrlObject = encodeURIComponent(JSON.stringify(dataArray));
