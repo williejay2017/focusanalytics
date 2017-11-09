@@ -52,8 +52,6 @@ class Utility {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var responseData = xhr.responseText;
                 json = JSON.parse(JSON.parse(responseData));
-                //console.log(json.length);
-                //console.log(json[1].xPosition);
                 if(json.length === 0) { 
 					alert("No data could be retrieved for parameters specified.");
                 }

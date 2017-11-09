@@ -34,7 +34,6 @@ function toggleDashboard(event) {
         document.addEventListener('click', getClickingInformation);
         document
             .getElementById("sidenav").style.right = "-600px";
-            //hide calendar datepicker popup whn the dashboard closes
             if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
                 document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
             }
