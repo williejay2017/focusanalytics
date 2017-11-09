@@ -31,7 +31,10 @@ class Utility {
             regionData : regionData
         }
        
+        heatMapData = [];
+        regionData = [];
         return processedData;
+        
     }
 
     static getData(callback, app) {

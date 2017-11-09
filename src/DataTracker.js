@@ -48,13 +48,31 @@ function toggleDashboard(event) {
 function getClickingInformation(event) {
     var click = new UserInteraction(event, "click");
     interactionContainer.push(JSON.stringify(click));
-    storeData();
+    //storeData();
+    testStoreData();
 }
 
 function captureBeforeCloseEvent(event) {
     var visit = new UserInteraction(event, 'visit');
     interactionContainer.push(JSON.stringify(visit));
     window.onbeforeunload = storeData();
+}
+
+
+function testStoreData(){
+    var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
+     var xhr = new XMLHttpRequest();
+     xhr.onreadystatechange = function (){
+         if (xhr.readyState === 4 && xhr.status === 200) {
+                var responseData = xhr.responseText;
+                console.log(responseData);
+            }
+     }
+    xhr.open("GET",  "https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?param" +
+                "s=" + encodedJSON, true);
+    xhr.send();
+    interactionContainer = [];
+
 }
 
 function storeData() {

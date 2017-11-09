@@ -7,29 +7,25 @@ class Heatmap extends React.Component{
         super(props);
         this.state = {
             data: props.data,
-            dataVersion: props.dataVersion,
             width: this.getPageWidth(),
 			height: this.getpageHeight(),
         }
     }
     
     componentWillReceiveProps(nextProps) {
-        if (nextProps.dataVersion > this.state.dataVersion) {
-            this.setState({ 
+        this.setState({ 
                 data: nextProps.data, 
-                dataVersion: nextProps.dataVersion 
             });
-		}
-    }
+	}
     
     
-	getPageWidth() {
-		var pageWidth = document.body.scrollWidth;
+    getPageWidth() {
+		var pageWidth = window.innerWidth;
 		return pageWidth !== undefined && pageWidth !== 0 ? pageWidth : window.innerWidth;
 	}
 
 	getpageHeight() {
-		var pageHeight = document.body.scrollHeight;
+		var pageHeight = window.innerHeight;
 		return pageHeight !== undefined && pageHeight !== 0 ? pageHeight : window.innerHeight;
 	}
 

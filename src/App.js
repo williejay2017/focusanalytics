@@ -5,7 +5,7 @@ import Utility from './Utility.js';
 import moment from 'moment';
 import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
-// import InteractionChart from './InteractionChart.js';
+//import InteractionChart from './InteractionChart.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -83,11 +83,15 @@ class App extends Component {
   }
   
   changeStartTimeValue = (value) => {
-    this.timeObject.startTime = value.valueOf();
+    var millisecondPerMin = 60000;
+    var millisecondPerHour = 3600000;
+    this.timeObject.startTime = (value.hour() * millisecondPerHour) + (value.minute() * millisecondPerMin);
   }
 
   changeEndTimeValue = (value) => {
-    this.timeObject.endTime = value.valueOf();
+    var millisecondPerMin = 60000;
+    var millisecondPerHour = 3600000;
+    this.timeObject.endTime = (value.hour() * millisecondPerHour) + (value.minute() * millisecondPerMin);
   }
 
   render() {
@@ -102,12 +106,12 @@ class App extends Component {
           <hr/>
 
           {/* <InteractionChart data={this.state.chartData} startDate={this.state.startDate} endDate={this.state.endDate} 
-            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/> */}
+            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>  */}
 
         </div>
 
         {/*Heatmap itself is broke currently*/}
-         <Heatmap data={this.state.heatMapData} dataVersion={this.state.dataVersion}/>
+         <Heatmap data={this.state.heatMapData}/>
       </div>
     );
   }
