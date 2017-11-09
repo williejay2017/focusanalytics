@@ -16,5 +16,6 @@ it('calendar renders', () => {
 
 it('Heatmap Canvas Renders', () => {
   const div = document.createElement('div');
-  ReactDom.render(<Heatmap />, div);
+  ReactDOM.render(<Heatmap />, div);
 });
+

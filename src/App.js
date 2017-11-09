@@ -5,7 +5,7 @@ import Utility from './Utility.js';
 import moment from 'moment';
 import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
-//import InteractionChart from './InteractionChart.js';
+// import InteractionChart from './InteractionChart.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -105,12 +105,12 @@ class App extends Component {
           <br/>
           <hr/>
 
-          {/* <InteractionChart data={this.state.chartData} startDate={this.state.startDate} endDate={this.state.endDate} 
-            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>  */}
+           {/* <InteractionChart data={this.state.chartData} startDate={this.state.startDate} endDate={this.state.endDate} 
+            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>   */}
 
         </div>
 
-        {/*Heatmap itself is broke currently*/}
+       
          <Heatmap data={this.state.heatMapData}/>
       </div>
     );
