@@ -12,6 +12,7 @@
 .Focus-sidenav {
     height: 100%;
     width: 600px;
+    font-family: 'Arial' ;
     position: fixed;
     z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
     top: 0;

@@ -32,8 +32,7 @@ class Heatmap extends React.Component{
 
 
     render(){
-        console.log(this.props.data);
-        return (
+       return (
             <div style={{ width: this.state.width, height: this.state.height }}>
                 <ReactHeatmap max={5} data={this.state.data} unit={"pixels"} />
             </div>
