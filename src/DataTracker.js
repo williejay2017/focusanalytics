@@ -1,5 +1,3 @@
-
-
 var interactionContainer = [];
 var startTime = Date.now();
 
@@ -35,7 +33,7 @@ function toggleDashboard(event) {
     if (event.keyCode === 88 && event.ctrlKey) {
         document.addEventListener('click', getClickingInformation);
         document
-            .getElementById("sidenav").style.right = "-100%";
+            .getElementById("sidenav").style.right = "-600px";
             //hide calendar datepicker popup whn the dashboard closes
             if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
                 document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
@@ -50,24 +48,40 @@ function toggleDashboard(event) {
 function getClickingInformation(event) {
     var click = new UserInteraction(event, "click");
     interactionContainer.push(JSON.stringify(click));
-    storeData();
+    //storeData();
+    testStoreData();
 }
 
 function captureBeforeCloseEvent(event) {
     var visit = new UserInteraction(event, 'visit');
     interactionContainer.push(JSON.stringify(visit));
     window.onbeforeunload = storeData();
-   
+}
+
+
+function testStoreData(){
+    var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
+     var xhr = new XMLHttpRequest();
+     xhr.onreadystatechange = function (){
+         if (xhr.readyState === 4 && xhr.status === 200) {
+                var responseData = xhr.responseText;
+                console.log(responseData);
+            }
+     }
+    xhr.open("GET",  "https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?param" +
+                "s=" + encodedJSON, true);
+    xhr.send();
+    interactionContainer = [];
+
 }
 
 function storeData() {
-   
+
         var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
         var img = new Image();
         img.src = "https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?param" +
                 "s=" + encodedJSON;
         interactionContainer = [];
-    
 }
 
 window.addEventListener('keydown', toggleDashboard);

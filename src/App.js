@@ -4,7 +4,10 @@ import './DataTracker.js';
 import Utility from './Utility.js';
 import moment from 'moment';
 import Calendar from './Calendar.js';
+import Heatmap from './Heatmap.js';
+// import InteractionChart from './InteractionChart.js';
 import 'react-datepicker/dist/react-datepicker.css';
+
 
 
 class App extends Component {
@@ -17,8 +20,12 @@ class App extends Component {
       millisecondPerMin: 60000,
       millisecondPerHour: 3600000,
       heatMapData : [],
-      processData: [],
-      dataVersion: 0
+      regionData : [],
+      version: 0,
+      dataVersion: 0,
+      displayClicks: true,
+			displayPageVisits: true
+      
       
     };
     this.calendarHandleChangeStart = this.calendarHandleChangeStart.bind(this);
@@ -29,9 +36,9 @@ class App extends Component {
 
   timeObject = {
     startTime:0,
-    endTime:0, 
-    startDay:0,
-    endDay:0
+    endTime:0,
+    startDate:0,
+    endDate: 0
   }
 
   
@@ -41,28 +48,31 @@ class App extends Component {
     event.preventDefault();
 
     //Setting time and date values for query
-    this.timeObject.startDay = this.state.startDate.startOf('day').valueOf();
-    this.timeObject.endDay = this.state.endDate.startOf('day').valueOf();
+    this.timeObject.startDate = this.state.startDate.startOf('day').valueOf();
+    this.timeObject.endDate = this.state.endDate.startOf('day').valueOf();
+    console.log(this.timeObject);
     Utility.setDates(this.timeObject);
-    this.retreiveData();
+    this.dataHandler();
   }
 
-  retreiveData() {
+  dataHandler() {
     Utility.getData(function(value, app){
       try{
-          app.setState({
-             heatMapData: value.data, 
-             dataVersion: app.state.dataVersion + 1
-           });
-          console.log(value);
-          
-        }catch(err){
-        console.error("Data Callback Error: " + err);
+          app.setData(value);
+         }catch(err){
+          console.error("Data Callback Error: " + err);
       }
     },this);
   }
 
-  
+  setData = (data) => {
+    
+    var filterData = Utility.processData(data);
+    //set the rest, react will render based on values passed into props
+    this.setState({heatMapData: filterData.heatMapData,
+                   dataVersion: this.state.dataVersion + 1,
+                   regionData: filterData.regionData});
+  }
 
   calendarHandleChangeStart = (date) => {
    this.setState({startDate: date});
@@ -73,49 +83,15 @@ class App extends Component {
   }
   
   changeStartTimeValue = (value) => {
-    
-        var parseTime = value.format(this.state.format);
-        var seperators = [":", " "];
-        var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-        var addedMinutes = parseInt(splitTest[1], 10) * this.state.millisecondPerMin;
-        var addHours;
-
-        if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-            addHours = parseInt(splitTest[0], 10) * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-            var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            var position = tempArray[parseInt(splitTest[0], 10)];
-            addHours = position * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-            addHours = 12 * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-            addHours = 0 * this.state.millisecondPerHour;
-        }
-        
-        this.timeObject.startTime = addHours + addedMinutes;
+    var millisecondPerMin = 60000;
+    var millisecondPerHour = 3600000;
+    this.timeObject.startTime = (value.hour() * millisecondPerHour) + (value.minute() * millisecondPerMin);
   }
 
   changeEndTimeValue = (value) => {
-    var parseTime = value.format(this.state.format);
-        var seperators = [":", " "];
-        var splitTest = parseTime.split(new RegExp(seperators.join('|'), 'g'));
-        var addedMinutes = parseInt(splitTest[1], 10) * this.state.millisecondPerMin;
-        var addHours;
-
-        if (splitTest[2] === 'AM' && splitTest[0] !== '12') {
-            addHours = parseInt(splitTest[0], 10) * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] !== '12') {
-            var tempArray = [0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            var position = tempArray[parseInt(splitTest[0], 10)];
-            addHours = position * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'PM' && splitTest[0] === '12') {
-            addHours = 12 * this.state.millisecondPerHour;
-        } else if (splitTest[2] === 'AM' && splitTest[0] === '12') {
-            addHours = 0 * this.state.millisecondPerHour;
-        }
-        
-        this.timeObject.endTime = addHours + addedMinutes;
-
+    var millisecondPerMin = 60000;
+    var millisecondPerHour = 3600000;
+    this.timeObject.endTime = (value.hour() * millisecondPerHour) + (value.minute() * millisecondPerMin);
   }
 
   render() {
@@ -129,7 +105,13 @@ class App extends Component {
           <br/>
           <hr/>
 
+           {/* <InteractionChart data={this.state.chartData} startDate={this.state.startDate} endDate={this.state.endDate} 
+            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>   */}
+
         </div>
+
+       
+         <Heatmap data={this.state.heatMapData}/>
       </div>
     );
   }
