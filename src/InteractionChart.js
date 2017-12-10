@@ -8,83 +8,79 @@ class InteractionChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.startDate,
-            endDate: props.endDate,
             timeObject: props.timeObject,
             chartData: {},
-            options: {
+            options: { 
                 title: {
                     display: true,
-                    text: 'Number of User Interactions',
+                    text: 'Clicks vs. Visits',
                     fontSize: 14,
-                    fontColor: '#E87722',
-                    fontFamily: 'Comic Sans MS'
+                    fontColor: '#1fad33',
+                    fontFamily: 'Helvetica Neue'
                 },
                 scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                                fontColor: '#E87722',
-                                fontFamily: 'Comic Sans MS'
-                            }
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#1fad33',
+                            fontFamily: 'Helvetica Neue'
                         }
-                    ],
-                    xAxes: [
-                        {
-                            ticks: {
-                                fontColor: '#E87722',
-                                fontFamily: 'Comic Sans MS',
-                                fontSize: 11
-                            }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: '#1fad33',
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 11
                         }
-                    ]
+                    }]
                 },
                 legend: {
                     display: true,
                     position: 'bottom',
                     labels: {
-                        fontColor: '#E87722',
-                        fontFamily: 'Comic Sans MS'
+                    fontColor: '#1fad33',
+                    fontFamily: 'Helvetica Neue'
                     }
                 }
-            },
-
-         
-
+            }
         }
     }
 
-     
-    componentWillReceiveProps(nextProps) {
-        this.chartScale(nextProps.data, nextProps.displayClicks, nextProps.displayPageVisits, nextProps.startDate);
+    componentWillReceiveProps = (nextProps) => {
+        this.chartScale(nextProps.data, nextProps.displayClicks, nextProps.displayPageVisits);
     }
-     
+
     chartScale(dataArray, clickProp, displayProp) {
         
-        var dateDifference = moment(this.state.endDate).startOf('day').valueOf() - moment(this.state.startDate).startOf('day').valueOf();
+        var dateDifference = this.state.timeObject.endDate - this.state.timeObject.startDate;
+        console.log(dateDifference);
+
+        var timeDifference = moment(moment().startOf('day').valueOf() + this.state.timeObject.endTime)  - 
+                             moment(moment().startOf('day').valueOf() + this.state.timeObject.startTime);
+        console.log(this.state.timeObject.startDate);
+        console.log(this.state.timeObject.startTime);
         
-        var timeDifference = moment(moment().startOf('day').valueOf() + this.state.timeObject.endTimeHour + this.state.timeObject.endTimeMin)  - 
-                             moment(moment().startOf('day').valueOf() + this.state.timeObject.startTimeHour + this.state.timeObject.startTimeMin);
-        
-        if (dateDifference >= 2.678e+9) {   //Scale by month if difference is greater than 30 days.
+        if (dateDifference >= 2.678e+9) {  
             this.scale('Months', dataArray, clickProp, displayProp);
+            console.log("Scale by month if difference is greater than 30 days.")
         }
-        else if (dateDifference < 2.678e+9 && dateDifference >= 86390000) {   //Scale by days if difference is less than 30 days and greater than 24 hours.
+        else if (dateDifference <= 2.678e+9 && dateDifference >= 86390000) {   
             this.scale('Days', dataArray, clickProp, displayProp);
+            console.log("Scale by days if difference is less than / equal  to 30 days and greater than 24 hours.")
         }
-        else if (timeDifference > 2.88e+7){
-            this.scale('Hours', dataArray, clickProp, displayProp);    //Scale by hours if difference is less than 24 hours and greater than 8 hours.
+        else if (timeDifference > 2.88e+7 && timeDifference < 8.64e+7){
+            this.scale('Hours', dataArray, clickProp, displayProp);    
+            console.log("Hours");
         }
-        else {
-            this.scale('Half-Hours', dataArray, clickProp, displayProp);    //Scale by half-hour increments if difference is less than 8 hours.
+        else if (timeDifference < 2.88e+7){
+            this.scale('Half-Hours', dataArray, clickProp, displayProp);    
+            console.log("Half-Hours");
         }
     }
+     scale(scale, dataArray, clickProp, displayProp){
 
-
-    scale(scale, dataArray, clickProp, displayProp){
-        var start = moment(moment().startOf('day').valueOf() + this.state.timeObject.startTimeHour + this.state.timeObject.startTimeMin);
-        var end = moment(moment().startOf('day').valueOf() + this.state.timeObject.endTimeHour + this.state.timeObject.endTimeMin);
+        var start = moment(moment().startOf('day').valueOf() + this.state.timeObject.startTime);
+        var end = moment(moment().startOf('day').valueOf() + this.state.timeObject.endTime);
         var clickData;
         var visitData;
         var format;
@@ -103,11 +99,11 @@ class InteractionChart extends React.Component {
         }
         if (scale === 'Days') {
             format = 'M/D';
-            iterate = moment.twix(moment(this.state.startDate).startOf('day').valueOf(), moment(this.state.endDate).startOf('day').valueOf()).iterate(scale);
+            iterate = moment.twix(moment(this.state.timeObject.startDate).startOf('day').valueOf(), moment(this.state.timeObject.endDate).startOf('day').valueOf()).iterate(scale);
         }
         if (scale === 'Months') {
             format = 'MMM';
-            iterate = moment.twix(moment(this.state.startDate).startOf('day').valueOf(), moment(this.state.endDate).startOf('day').valueOf()).iterate(scale);
+            iterate = moment.twix(moment(this.state.timeObject.startDate).startOf('day').valueOf(), moment(this.state.timeObject.endDate).startOf('day').valueOf()).iterate(scale);
         }
 
         //Add labels to graph.
@@ -157,11 +153,12 @@ class InteractionChart extends React.Component {
         this.handleToggle(scale.slice(0, -1), labels, clickData, visitData, clickProp, displayProp);
     }
 
-     handleToggle(scale, labels, realClickData, realVisitData, clickProp, displayProp) {
+    //Toggle buttons to toggle on/off page visits and number of clicks.
+    handleToggle(scale, labels, realClickData, realVisitData, clickProp, displayProp) {
         var newData;
         var clickData;
         var visitData;
-        
+       
 
         if (clickProp && displayProp) {
 
@@ -190,12 +187,12 @@ class InteractionChart extends React.Component {
             datasets: [
                 {
                     data: visitData,
-                    label: "Visits",
+                    label: "Page Visits",
                     backgroundColor: 'rgba(255,255,255,0.5)',
                     borderColor: 'white',
                 }, {
                     data: clickData,
-                    label: "Clicks",
+                    label: "User Clicks",
                     backgroundColor: 'rgba(0,255,0,0.1)',
                     borderColor: 'green',
 					pointHoverBackgroundColor:'green'
@@ -203,7 +200,6 @@ class InteractionChart extends React.Component {
         }
         //Update states with new graph data and options.
         this.setState({ chartData: newData });
-        console.log(this.state.chartData);
     }
 
     render() {

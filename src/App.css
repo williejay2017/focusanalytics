@@ -1,9 +1,9 @@
 .Focus-App{
     text-align: center;
     font-size: 14px;
-    font-family: 'Arial' ;
+    font-family: 'Helvetica Neue' ;
     line-height: 1.42857;
-    color: lightgray;
+    color: #1fad33;
     height: 100%;
     width: 100%;
 }
@@ -12,7 +12,7 @@
 .Focus-sidenav {
     height: 100%;
     width: 600px;
-    font-family: 'Arial' ;
+    font-family: 'Helvetica Neue' ;
     position: fixed;
     z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
     top: 0;
