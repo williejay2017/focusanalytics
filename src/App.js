@@ -6,6 +6,7 @@ import moment from 'moment';
 import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
 import InteractionChart from './InteractionChart.js';
+import GeoChart from './GeoChart.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -22,7 +23,7 @@ class App extends Component {
       heatMapData : [],
       regionData : [],
       version: 0,
-      dataVersion: 0,
+      dataVersion: 1,
       displayClicks: true,
       displayPageVisits: true,
       chartTimeObject: Utility.getTimeObject()
@@ -66,8 +67,8 @@ class App extends Component {
   }
 
   setData = (data) => {
-    //set the rest, react will render based on values passed into props
-    this.setState({heatMapData: data});
+    this.setState({heatMapData: data,
+                   dataVersion: this.state.dataVersion + 1});
   }
 
   calendarHandleChangeStart = (date) => {
@@ -101,7 +102,10 @@ class App extends Component {
           <br/>
           <hr/>
 
-          <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>   
+          <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
+          dataVersion = {this.state.dataVersion}/>   
+
+          <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>
 

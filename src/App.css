@@ -21,7 +21,7 @@
     padding: 0 7px 5px;
     background-color:gray;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
     transition: 0.5s;
     opacity: 0.2;
     filter: alpha(opacity=50);

@@ -9,6 +9,7 @@ class InteractionChart extends React.Component {
         super(props);
         this.state = {
             timeObject: props.timeObject,
+            dataVersion: props.dataVersion,
             chartData: {},
             options: { 
                 title: {
@@ -48,33 +49,31 @@ class InteractionChart extends React.Component {
 
     componentWillReceiveProps = (nextProps) => {
         this.chartScale(nextProps.data, nextProps.displayClicks, nextProps.displayPageVisits);
+        
     }
+
 
     chartScale(dataArray, clickProp, displayProp) {
         
+        
         var dateDifference = this.state.timeObject.endDate - this.state.timeObject.startDate;
-        console.log(dateDifference);
 
         var timeDifference = moment(moment().startOf('day').valueOf() + this.state.timeObject.endTime)  - 
                              moment(moment().startOf('day').valueOf() + this.state.timeObject.startTime);
-        console.log(this.state.timeObject.startDate);
-        console.log(this.state.timeObject.startTime);
+       
         
         if (dateDifference >= 2.678e+9) {  
             this.scale('Months', dataArray, clickProp, displayProp);
-            console.log("Scale by month if difference is greater than 30 days.")
+           
         }
         else if (dateDifference <= 2.678e+9 && dateDifference >= 86390000) {   
             this.scale('Days', dataArray, clickProp, displayProp);
-            console.log("Scale by days if difference is less than / equal  to 30 days and greater than 24 hours.")
         }
         else if (timeDifference > 2.88e+7 && timeDifference < 8.64e+7){
             this.scale('Hours', dataArray, clickProp, displayProp);    
-            console.log("Hours");
         }
         else if (timeDifference < 2.88e+7){
             this.scale('Half-Hours', dataArray, clickProp, displayProp);    
-            console.log("Half-Hours");
         }
     }
      scale(scale, dataArray, clickProp, displayProp){
