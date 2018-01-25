@@ -21,7 +21,7 @@ class UserInteraction {
 function toggleDashboard(event) {
     if (event.keyCode === 90 && event.ctrlKey) {
         document.removeEventListener('click',getClickingInformation);
-        document.getElementById("sidenav").style.right = "0";
+        document.getElementById("sidenav").style.right = "0px";
         if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
                 document.getElementsByClassName("react-datepicker")[0].style.display = 'inline-block';
             }
@@ -33,7 +33,7 @@ function toggleDashboard(event) {
     if (event.keyCode === 88 && event.ctrlKey) {
         document.addEventListener('click', getClickingInformation);
         document
-            .getElementById("sidenav").style.right = "-600px";
+            .getElementById("sidenav").style.right = "-2000px";
             if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
                 document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
             }

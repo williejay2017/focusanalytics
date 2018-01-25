@@ -16,20 +16,20 @@ class InteractionChart extends React.Component {
                     display: true,
                     text: 'Clicks vs. Visits',
                     fontSize: 14,
-                    fontColor: '#1fad33',
+                    fontColor: '#FFFFFF',
                     fontFamily: 'Helvetica Neue'
                 },
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            fontColor: '#1fad33',
+                            fontColor: '#FFFFFF',
                             fontFamily: 'Helvetica Neue'
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            fontColor: '#1fad33',
+                            fontColor: '#FFFFFF',
                             fontFamily: 'Helvetica Neue',
                             fontSize: 11
                         }
@@ -39,7 +39,7 @@ class InteractionChart extends React.Component {
                     display: true,
                     position: 'bottom',
                     labels: {
-                    fontColor: '#1fad33',
+                    fontColor: '#FFFFFF',
                     fontFamily: 'Helvetica Neue'
                     }
                 }
@@ -203,7 +203,7 @@ class InteractionChart extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className ="Ichart">
                 <Line data={this.state.chartData} options={this.state.options} height={7} width={15}/>
             </div>
         );

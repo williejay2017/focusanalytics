@@ -3,20 +3,24 @@
     font-size: 14px;
     font-family: 'Helvetica Neue' ;
     line-height: 1.42857;
-    color: #1fad33;
+    color: #FFFFFF;
     height: 100%;
     width: 100%;
 }
 
+@font-face {
+    font-family: "Trench";
+    src: url("/Users/joshuawilford/Desktop/focusanalytics/src/Font/trench100free.ttf");
+}
 
 .Focus-sidenav {
     height: 100%;
-    width: 600px;
+    width: 100%;
     font-family: 'Helvetica Neue' ;
     position: fixed;
     z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
     top: 0;
-    right: -600px;
+    right: -100%;
     box-sizing: border-box;
     padding: 0 7px 5px;
     background-color:gray;
@@ -27,23 +31,85 @@
     filter: alpha(opacity=50);
 }
 
+
+.Focus-sidenav .loginContainer{
+    
+    display: inline-block;
+    vertical-align: top;
+    height: 170px; /*needs to be the same height as .controlPanel*/
+    box-sizing: border-box;
+    width : 40%; /*other percentage is .controlPanelr*/
+    border: 3px solid #73AD21;
+    margin: 200px auto;
+    border-radius: 20px;
+}
+
+.Focus-sidenav .loginData{
+    margin: 15px auto;
+}
+
+.Focus-sidenav .loginContainer h3{
+    margin: 5px auto;
+    font-family: 'Trench';
+    font-size: 30px;
+}
+
+.Focus-sidenav .loginContainer input[type="text"]{
+    color: black;
+    border-radius: 25px;
+    height: 20px;
+    width: 100px;
+    box-sizing: border-box;
+    padding: 4px 7px;
+    font-size: 12px;
+    border-width: 1px;
+}
+
+.Focus-sidenav .loginContainer input[type="password"]{
+    color: black;
+    border-radius: 25px;
+    height: 20px;
+    width: 100px;
+    box-sizing: border-box;
+    padding: 4px 7px;
+    font-size: 12px;
+    border-width: 1px;
+}
+
+.Focus-sidenav .loginContainer input[type="submit"]{
+    color: #FFFFFF;
+    background-color:#73AD21;
+    box-sizing: border-box;
+    height: 25px;
+    width: 100px;
+    border-radius: 20px;
+    border-width: 0px;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+
 .Focus-sidenav:hover {
     opacity: 1.0;
     filter: alpha(opacity=100);
 }
 
 .Focus-sidenav .dateContainer{
+    
     display: inline-block;
     vertical-align: top;
-    height: 150px; /*needs to be the same height as .controlPanel*/
+    height: 170px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
-    width : 50%; /*other percentage is .controlPanelr*/
+    width : 40%; /*other percentage is .controlPanelr*/
+    border: 3px solid #73AD21;
+    margin-left: 250px;
 }
 
 .Focus-sidenav .dateLabel {
     color: inherit;
     display: inline-block;
-    width: 50%;
+    width: 25%;
 }
 
 .Focus-sidenav input[type="text"] {
@@ -60,15 +126,39 @@
 
 .Focus-sidenav input[type="submit"]{
     color: #FFFFFF;
-    background-color:green;
+    background-color:#73AD21;
     box-sizing: border-box;
     height: 30px;
     width: 70px;
     border-radius: 20px;
     border-width: 0px;
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 5px 5px 5px 5px;
+}
+
+.Focus-sidenav .Ichart{
+    height: 600px;
+    width: 600px;
+}
+
+.Focus-sidenav .Gchart{
+    height: 600px;
+    width: 600px;
+    float: right;
+    margin-top: -600px;
+}
+
+.Focus-sidenav .toggleSwitch{
+    margin-bottom: -30px;
+    margin-right: 20px;
+    width: 200px;
+    height: 150px;
+    float: right;
+}
+
+.Focus-sidenav .toggleSwitch div {
+    float: right;
 }
 
 .rc-time-picker-panel {
