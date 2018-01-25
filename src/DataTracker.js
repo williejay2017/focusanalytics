@@ -3,8 +3,8 @@ var startTime = Date.now();
 
 class UserInteraction {
     constructor(event, type) {
-        this.xPosition = event.clientX;
-        this.yPosition = event.clientY;
+        this.xPosition = event.clientX - event.target.offsetTop;
+        this.yPosition = event.clientY - event.target.offsetTop;
         this.pageUrl = window.location.href;
         this.type = type;
 

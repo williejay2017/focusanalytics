@@ -7,8 +7,8 @@ import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
 import InteractionChart from './InteractionChart.js';
 import GeoChart from './GeoChart.js';
-import ToggleSwitch from './ToggleSwitch.js';
 import Login from './Login.js';
+import ControlPanel from './ControlPanel.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -26,13 +26,13 @@ class App extends Component {
       regionData : [],
       version: 0,
       dataVersion: 1,
-      displayClicks: true,
-      displayPageVisits: true,
+      toggleHeat: false,
+      displayClicks: false,
+      displayPageVisits: false,
       chartTimeObject: Utility.getTimeObject(),
       value: false,
       text: 'Focus Analytics',
-      NotAuthorized: true,
-      
+      NotAuthorized: true
       
       
     };
@@ -41,6 +41,9 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeStartTimeValue = this.changeStartTimeValue.bind(this);
     this.handleAuthorization = this.handleAuthorization.bind(this);
+    this.toggleHeatMap = this.toggleHeatMap.bind(this);
+		this.displayClicks = this.displayClicks.bind(this);
+		this.displayPageVisits = this.displayPageVisits.bind(this);
   }
 
   timeObject = {
@@ -53,13 +56,8 @@ class App extends Component {
   handleAuthorization(event) {
     event.preventDefault();
     //perform authorization here
-    console.log('Worked');
-    this.setState({NotAuthorized: false});
-    setInterval(this.idolCheck, 5000);
-  }
-
-  idolCheck(){
-    console.log('Check');
+  this.setState({NotAuthorized: false});
+   
   }
 
   handleSubmit(event) {
@@ -84,9 +82,47 @@ class App extends Component {
   }
 
   setData = (data) => {
+    
+    var isData = data.length !== 0;
     this.setState({heatMapData: data,
-                   dataVersion: this.state.dataVersion + 1});
+                   dataVersion: this.state.dataVersion + 1,
+                   toggleHeat: isData,
+                   displayClicks: isData, 
+                   displayPageVisits: isData});
   }
+
+  displayClicks(show) {
+		if (!show || this.state.heatMapData.length !== 0) {
+			this.setState({ displayClicks: show });
+		}
+		else {
+			alert("No click data to display. Update date/time and click submit");
+			this.setState({ displayClicks: false });
+		}
+  }
+  
+	displayPageVisits(show) {
+		if (!show || this.state.heatMapData.length !== 0) {
+			this.setState({ displayPageVisits: show });
+		}
+		else {
+			alert("No page visit data to display. Update date/time and click submit");
+			this.setState({ displayPageVisits: false });
+		}
+	}
+
+	toggleHeatMap(show) {
+		if (!show || this.state.heatMapData.length !== 0) {
+			this.setState({ toggleHeat: show });
+		}
+		else {
+			alert("No Heatmap data to display. Update date/time and click submit");
+			this.setState({ toggleHeat: false });
+		}
+	}
+
+
+  
 
   calendarHandleChangeStart = (date) => {
    this.setState({startDate: date});
@@ -129,19 +165,21 @@ class App extends Component {
             calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
             changeStartTimeValue = {this.changeStartTimeValue}  changeEndTimeValue = {this.changeEndTimeValue}/>
           
-          <ToggleSwitch value ={this.state.value} text={this.state.text}/>
+          <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
+						heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
+          <br/>  
+          <br/>
+          <br/>
           <hr/>
-         
-         <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
+          <br/>  
+          
+          <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
             dataVersion = {this.state.dataVersion}/>  
           
-
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>
-
-       
-         <Heatmap data={this.state.heatMapData}/>
+          <Heatmap data={this.state.heatMapData}/>
       </div>
     );
   }

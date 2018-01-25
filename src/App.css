@@ -96,14 +96,15 @@
 }
 
 .Focus-sidenav .dateContainer{
-    
+    font-family: 'Trench';
     display: inline-block;
     vertical-align: top;
     height: 170px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
     width : 40%; /*other percentage is .controlPanelr*/
     border: 3px solid #73AD21;
-    margin-left: 250px;
+    border-radius: 20px;
+    margin-left: auto;
 }
 
 .Focus-sidenav .dateLabel {
@@ -150,16 +151,46 @@
 }
 
 .Focus-sidenav .toggleSwitch{
-    margin-bottom: -30px;
+    margin-bottom: 10px;
     margin-right: 20px;
     width: 200px;
-    height: 150px;
-    float: right;
+    height: 20px;
+    
 }
 
 .Focus-sidenav .toggleSwitch div {
     float: right;
 }
+
+.Focus-sidenav .controlPanel {
+    display: inline-block;
+    vertical-align: top;
+    overflow: visible;
+    box-sizing: border-box;
+    width: 40%; /*other percentage is .dateContainer*/
+    height: 170px; /*needs to be the same height as .dateContainer*/
+    padding-left: 30px;
+    border: 3px solid #73AD21;
+    border-radius: 20px;
+    font-family: 'Trench';
+    font-size: 17px;
+}
+
+
+
+.Focus-sidenav .controlPanel h4 {
+    font-size: inherit;
+    float: left;
+    padding-right: 10px;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.Focus-sidenav .controlPanel h3 {
+    color: #73AD21;
+}
+
 
 .rc-time-picker-panel {
     z-index: 100002 !important; /*Must stay same relative to dashboard, heatmap, loading, and displayHelp*/

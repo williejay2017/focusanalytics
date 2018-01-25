@@ -1,7 +1,7 @@
 import ToggleButton from 'react-toggle-button';
-import React from 'react';
+import React, {Component} from 'react';
 
-class ToggleSwitch extends React.Component {
+class ToggleSwitch extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -20,6 +20,7 @@ class ToggleSwitch extends React.Component {
 				<h4>{this.state.text}</h4>
 				<ToggleButton value={ this.state.value } onToggle={(value) => {
 					this.setState({value: !value});
+					this.props.handler(!value);
 				}}/>
 			</div>
 		);

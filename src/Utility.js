@@ -14,6 +14,10 @@ class Utility {
         return queryTimeObject;
     }
 
+    static idolCheck(){
+    this.location.reload(true);
+  }
+
     // static processData(data){
     //     var regionData = [];
     //     var heatMapData = [];

@@ -10,23 +10,23 @@ class GeoChart extends Component {
 			options: {
 				title: {
 					display: true,
-					text: 'User Interactions by Region',
-					fontSize: 14,
+					text: 'Interactions by Region',
+					fontSize: 20,
 					fontColor: '#FFFFFF',
-					fontFamily: 'Helvetica Neue'
+					fontFamily: 'Trench'
 				},
 				scales: {
 					yAxes: [{
 						ticks: {
 							 beginAtZero: true,
 						     fontColor: '#FFFFFF',
-							 fontFamily: 'Helvetica Neue'
+							 fontFamily: 'Trench'
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             fontColor: '#FFFFFF',
-							fontFamily: 'Helvetica Neue'
+							fontFamily: 'Trench'
                         }
                     }]
 				},
@@ -35,7 +35,8 @@ class GeoChart extends Component {
 					position: 'bottom',
 					labels: {
 						fontColor: '#FFFFFF',
-						fontFamily: 'Helvetica Neue'
+						fontFamily: 'Trench',
+						fontSize: 15
 					}
 				},
 			},
@@ -126,8 +127,8 @@ class GeoChart extends Component {
 		var newOptions = { 
 			title: {
 				display: true,
-				text: 'User Interactions by Region',
-				fontSize: 15
+				text: 'Interactions by Region',
+				fontSize: 20
 			},
 			// responsive: true,
 			tooltips: {
