@@ -5,7 +5,8 @@ import Utility from './Utility.js';
 import moment from 'moment';
 import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
-// import InteractionChart from './InteractionChart.js';
+import InteractionChart from './InteractionChart.js';
+import GeoChart from './GeoChart.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -22,9 +23,10 @@ class App extends Component {
       heatMapData : [],
       regionData : [],
       version: 0,
-      dataVersion: 0,
+      dataVersion: 1,
       displayClicks: true,
-			displayPageVisits: true
+      displayPageVisits: true,
+      chartTimeObject: Utility.getTimeObject()
       
       
     };
@@ -50,7 +52,6 @@ class App extends Component {
     //Setting time and date values for query
     this.timeObject.startDate = this.state.startDate.startOf('day').valueOf();
     this.timeObject.endDate = this.state.endDate.startOf('day').valueOf();
-    console.log(this.timeObject);
     Utility.setDates(this.timeObject);
     this.dataHandler();
   }
@@ -66,12 +67,8 @@ class App extends Component {
   }
 
   setData = (data) => {
-    
-    var filterData = Utility.processData(data);
-    //set the rest, react will render based on values passed into props
-    this.setState({heatMapData: filterData.heatMapData,
-                   dataVersion: this.state.dataVersion + 1,
-                   regionData: filterData.regionData});
+    this.setState({heatMapData: data,
+                   dataVersion: this.state.dataVersion + 1});
   }
 
   calendarHandleChangeStart = (date) => {
@@ -105,8 +102,10 @@ class App extends Component {
           <br/>
           <hr/>
 
-           {/* <InteractionChart data={this.state.chartData} startDate={this.state.startDate} endDate={this.state.endDate} 
-            displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>   */}
+          <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
+          dataVersion = {this.state.dataVersion}/>   
+
+          <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>
 

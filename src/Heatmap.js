@@ -13,11 +13,23 @@ class Heatmap extends React.Component{
     }
     
     componentWillReceiveProps(nextProps) {
-        this.setState({ 
-                data: nextProps.data, 
-            });
+        this.sanitizeData(nextProps.data);
 	}
-    
+     
+    sanitizeData(dataArray){
+        var heatMapData = [];
+        var i;
+        var type;
+        for(i = 0; i < dataArray.length; i++){
+            type = dataArray[i].type;
+            if(type === 'click'){
+                let x = parseInt(dataArray[i].xPosition,10);
+                let y = parseInt(dataArray[i].yPosition,10);
+                heatMapData.push({x:x,y:y,value:1});
+            }
+        }
+        this.setState({data : heatMapData});
+    }
     
     getPageWidth() {
 		var pageWidth = window.innerWidth;
