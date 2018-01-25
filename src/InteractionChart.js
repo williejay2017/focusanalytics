@@ -15,22 +15,22 @@ class InteractionChart extends React.Component {
                 title: {
                     display: true,
                     text: 'Clicks vs. Visits',
-                    fontSize: 14,
+                    fontSize: 20,
                     fontColor: '#FFFFFF',
-                    fontFamily: 'Helvetica Neue'
+                    fontFamily: 'Trench'
                 },
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
                             fontColor: '#FFFFFF',
-                            fontFamily: 'Helvetica Neue'
+                            fontFamily: 'Trench'
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             fontColor: '#FFFFFF',
-                            fontFamily: 'Helvetica Neue',
+                            fontFamily: 'Trench',
                             fontSize: 11
                         }
                     }]
@@ -40,7 +40,8 @@ class InteractionChart extends React.Component {
                     position: 'bottom',
                     labels: {
                     fontColor: '#FFFFFF',
-                    fontFamily: 'Helvetica Neue'
+                    fontFamily: 'Trench',
+                    fontSize: 15
                     }
                 }
             }
