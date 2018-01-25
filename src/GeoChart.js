@@ -10,22 +10,22 @@ class GeoChart extends Component {
 			options: {
 				title: {
 					display: true,
-					text: 'User Interactions by Region for Selected Dates',
+					text: 'User Interactions by Region',
 					fontSize: 14,
-					fontColor: '#1fad33',
+					fontColor: '#FFFFFF',
 					fontFamily: 'Helvetica Neue'
 				},
 				scales: {
 					yAxes: [{
 						ticks: {
 							 beginAtZero: true,
-						     fontColor: '#1fad33',
+						     fontColor: '#FFFFFF',
 							 fontFamily: 'Helvetica Neue'
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            fontColor: '#1fad33',
+                            fontColor: '#FFFFFF',
 							fontFamily: 'Helvetica Neue'
                         }
                     }]
@@ -34,7 +34,7 @@ class GeoChart extends Component {
 					display: true,
 					position: 'bottom',
 					labels: {
-						fontColor: '#1fad33',
+						fontColor: '#FFFFFF',
 						fontFamily: 'Helvetica Neue'
 					}
 				},
@@ -126,7 +126,7 @@ class GeoChart extends Component {
 		var newOptions = { 
 			title: {
 				display: true,
-				text: 'User Interactions by Region for Selected Dates',
+				text: 'User Interactions by Region',
 				fontSize: 15
 			},
 			// responsive: true,
@@ -152,7 +152,7 @@ class GeoChart extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="Gchart">
 				<Bar data={this.state.geoData} options={this.state.options} width={15} height={7} />
 			</div>
 		);

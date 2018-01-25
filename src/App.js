@@ -7,6 +7,8 @@ import Calendar from './Calendar.js';
 import Heatmap from './Heatmap.js';
 import InteractionChart from './InteractionChart.js';
 import GeoChart from './GeoChart.js';
+import ToggleSwitch from './ToggleSwitch.js';
+import Login from './Login.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -26,7 +28,11 @@ class App extends Component {
       dataVersion: 1,
       displayClicks: true,
       displayPageVisits: true,
-      chartTimeObject: Utility.getTimeObject()
+      chartTimeObject: Utility.getTimeObject(),
+      value: false,
+      text: 'Focus Analytics',
+      NotAuthorized: true,
+      
       
       
     };
@@ -34,6 +40,7 @@ class App extends Component {
     this.calendarHandleChangeEnd = this.calendarHandleChangeEnd.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.changeStartTimeValue = this.changeStartTimeValue.bind(this);
+    this.handleAuthorization = this.handleAuthorization.bind(this);
   }
 
   timeObject = {
@@ -43,7 +50,17 @@ class App extends Component {
     endDate: 0
   }
 
-  
+  handleAuthorization(event) {
+    event.preventDefault();
+    //perform authorization here
+    console.log('Worked');
+    this.setState({NotAuthorized: false});
+    setInterval(this.idolCheck, 5000);
+  }
+
+  idolCheck(){
+    console.log('Check');
+  }
 
   handleSubmit(event) {
     //Prevents refresh
@@ -92,6 +109,18 @@ class App extends Component {
   }
 
   render() {
+    
+    if(this.state.NotAuthorized){
+      return(
+        <div className="Focus-App">
+          <div id="sidenav" className="Focus-sidenav">
+            <Login handleAuthorization={this.handleAuthorization} text={this.state.text}/>
+          </div>
+        </div>
+      );
+
+    }else
+
     return (
       <div className="Focus-App">
         <div id="sidenav" className="Focus-sidenav">
@@ -99,11 +128,13 @@ class App extends Component {
           <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
             calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
             changeStartTimeValue = {this.changeStartTimeValue}  changeEndTimeValue = {this.changeEndTimeValue}/>
-          <br/>
+          
+          <ToggleSwitch value ={this.state.value} text={this.state.text}/>
           <hr/>
-
-          <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
-          dataVersion = {this.state.dataVersion}/>   
+         
+         <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
+            dataVersion = {this.state.dataVersion}/>  
+          
 
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
