@@ -111,6 +111,8 @@
     color: inherit;
     display: inline-block;
     width: 25%;
+    color: white;
+    
 }
 
 .Focus-sidenav input[type="text"] {
@@ -188,7 +190,17 @@
 }
 
 .Focus-sidenav .controlPanel h3 {
-    color: #73AD21;
+    color: white;
+}
+
+.Focus-App .displayHeat {
+    position: relative;
+    z-index: 99998 !important; 
+}
+
+.Focus-App .displayNone {
+    display: none;
+    z-index: 0 !important;
 }
 
 

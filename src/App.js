@@ -25,14 +25,15 @@ class App extends Component {
       heatMapData : [],
       regionData : [],
       version: 0,
-      dataVersion: 1,
-      toggleHeat: false,
-      displayClicks: false,
-      displayPageVisits: false,
+      dataVersion: 0,
+      toggleHeat: true,
+      displayClicks: true,
+      displayPageVisits: true,
       chartTimeObject: Utility.getTimeObject(),
       value: false,
       text: 'Focus Analytics',
-      NotAuthorized: true
+      NotAuthorized: true,
+      canvasTimeout: false
       
       
     };
@@ -52,6 +53,11 @@ class App extends Component {
     startDate:0,
     endDate: 0
   }
+
+  componentDidMount() {
+		this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
+		// window.addEventListener("resize", this.heatmapResizeContoller, false); 
+	}
 
   handleAuthorization(event) {
     event.preventDefault();
@@ -121,7 +127,12 @@ class App extends Component {
 		}
 	}
 
-
+  heatmapResizeContoller() {
+		if(!this.state.canvasTimeout){
+			this.setState({ canvasTimeout : true });
+			setTimeout(this.handleResize, 100); 
+		}
+  }
   
 
   calendarHandleChangeStart = (date) => {
@@ -168,18 +179,21 @@ class App extends Component {
           <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
 						heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
           <br/>  
-          <br/>
-          <br/>
           <hr/>
+          <br/> 
+          <br/> 
+          <br/> 
+          <br/> 
           <br/>  
-          
+          <hr/>
           <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
             dataVersion = {this.state.dataVersion}/>  
           
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>
-          <Heatmap data={this.state.heatMapData}/>
+          <Heatmap data={this.state.heatMapData} display={this.state.toggleHeat}
+                   dataVersion={this.state.dataVersion}/>
       </div>
     );
   }
