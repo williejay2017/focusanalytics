@@ -1,5 +1,5 @@
 var queryTimeObject = {startDate: 0, endDate: 0,startTime: 0, endTime: 0};
-
+var user = {emailID:"noemail@noemail.com", password:"nopassword", pageUrl:"noUrl"}
 
 class Utility {
 
@@ -44,6 +44,32 @@ class Utility {
     //     return processedData;
         
     // }
+
+    static setLogin(loginID,passWord){
+        user = {emailID:loginID, 
+                password:passWord, 
+                pageUrl:window.location.href};
+    }
+
+    static getAuthorization(callback,app){
+        var dataArray = [];
+        var urlBase = "https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/authorize?authorize=";
+        var json;
+        dataArray.push(JSON.stringify(user));
+        var jsonUrlObject = encodeURIComponent(JSON.stringify(dataArray));
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                json = JSON.parse(JSON.parse(response));
+                callback(json, app);
+            }
+        }
+        xhr.open("GET", urlBase + jsonUrlObject);
+        xhr.send();
+        dataArray = [];
+       
+    }
 
     static getData(callback, app) {
         var dataArray = [];

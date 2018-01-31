@@ -25,14 +25,17 @@ class App extends Component {
       heatMapData : [],
       regionData : [],
       version: 0,
-      dataVersion: 1,
-      toggleHeat: false,
-      displayClicks: false,
-      displayPageVisits: false,
+      dataVersion: 0,
+      toggleHeat: true,
+      displayClicks: true,
+      displayPageVisits: true,
       chartTimeObject: Utility.getTimeObject(),
       value: false,
       text: 'Focus Analytics',
-      NotAuthorized: true
+      NotAuthorized: true,
+      canvasTimeout: false,
+      password: "",
+      emailID:""
       
       
     };
@@ -43,7 +46,9 @@ class App extends Component {
     this.handleAuthorization = this.handleAuthorization.bind(this);
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
 		this.displayClicks = this.displayClicks.bind(this);
-		this.displayPageVisits = this.displayPageVisits.bind(this);
+    this.displayPageVisits = this.displayPageVisits.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   timeObject = {
@@ -53,14 +58,48 @@ class App extends Component {
     endDate: 0
   }
 
-  handleAuthorization(event) {
-    event.preventDefault();
-    //perform authorization here
-  this.setState({NotAuthorized: false});
-   
+  componentDidMount = ()=> {
+		this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
+		// window.addEventListener("resize", this.heatmapResizeContoller, false); 
+	}
+
+  //Login methods\\
+  handleEmailChange = (event) =>{
+    this.setState({emailID:event.target.value});
   }
 
-  handleSubmit(event) {
+  handlePasswordChange = (event) =>{
+    this.setState({password:event.target.value});
+  }
+
+  handleAuthorization = (event) => {
+    event.preventDefault();
+
+    Utility.setLogin(this.state.emailID, this.state.password);
+
+    Utility.getAuthorization(function(value, app){
+      try{
+        app.setAuthorize(value);
+      }catch(err){
+        console.error("Login Callback Failed: " + err);
+      }
+    },this);
+  }
+
+  setAuthorize = (response) => {
+    //add some sort of alert if response = true (meaning user is not authorized, 
+    //also maybe add a lockout after certain amount attemps)
+    if(response===false){
+      this.setState({NotAuthorized: true});
+      alert("Incorrect Username / Password");
+    }else{
+      this.setState({NotAuthorized: false});
+    }
+  }
+//-------------------\\
+
+
+  handleSubmit = (event) => {
     //Prevents refresh
     event.preventDefault();
 
@@ -71,7 +110,7 @@ class App extends Component {
     this.dataHandler();
   }
 
-  dataHandler() {
+  dataHandler = () => {
     Utility.getData(function(value, app){
       try{
           app.setData(value);
@@ -82,7 +121,6 @@ class App extends Component {
   }
 
   setData = (data) => {
-    
     var isData = data.length !== 0;
     this.setState({heatMapData: data,
                    dataVersion: this.state.dataVersion + 1,
@@ -91,7 +129,7 @@ class App extends Component {
                    displayPageVisits: isData});
   }
 
-  displayClicks(show) {
+  displayClicks = (show) => {
 		if (!show || this.state.heatMapData.length !== 0) {
 			this.setState({ displayClicks: show });
 		}
@@ -121,7 +159,12 @@ class App extends Component {
 		}
 	}
 
-
+  heatmapResizeContoller() {
+		if(!this.state.canvasTimeout){
+			this.setState({ canvasTimeout : true });
+			setTimeout(this.handleResize, 100); 
+		}
+  }
   
 
   calendarHandleChangeStart = (date) => {
@@ -150,7 +193,9 @@ class App extends Component {
       return(
         <div className="Focus-App">
           <div id="sidenav" className="Focus-sidenav">
-            <Login handleAuthorization={this.handleAuthorization} text={this.state.text}/>
+            <Login handleAuthorization={this.handleAuthorization} text={this.state.text} 
+                   password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
+                   handlePasswordChange={this.handlePasswordChange}/>
           </div>
         </div>
       );
@@ -168,18 +213,21 @@ class App extends Component {
           <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
 						heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
           <br/>  
-          <br/>
-          <br/>
           <hr/>
+          <br/> 
+          <br/> 
+          <br/> 
+          <br/> 
           <br/>  
-          
+          <hr/>
           <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
             dataVersion = {this.state.dataVersion}/>  
           
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>
-          <Heatmap data={this.state.heatMapData}/>
+          <Heatmap data={this.state.heatMapData} display={this.state.toggleHeat}
+                   dataVersion={this.state.dataVersion}/>
       </div>
     );
   }
