@@ -33,7 +33,9 @@ class App extends Component {
       value: false,
       text: 'Focus Analytics',
       NotAuthorized: true,
-      canvasTimeout: false
+      canvasTimeout: false,
+      password: "",
+      emailID:""
       
       
     };
@@ -44,7 +46,9 @@ class App extends Component {
     this.handleAuthorization = this.handleAuthorization.bind(this);
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
 		this.displayClicks = this.displayClicks.bind(this);
-		this.displayPageVisits = this.displayPageVisits.bind(this);
+    this.displayPageVisits = this.displayPageVisits.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   timeObject = {
@@ -54,19 +58,48 @@ class App extends Component {
     endDate: 0
   }
 
-  componentDidMount() {
+  componentDidMount = ()=> {
 		this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
 		// window.addEventListener("resize", this.heatmapResizeContoller, false); 
 	}
 
-  handleAuthorization(event) {
-    event.preventDefault();
-    //perform authorization here
-  this.setState({NotAuthorized: false});
-   
+  //Login methods\\
+  handleEmailChange = (event) =>{
+    this.setState({emailID:event.target.value});
   }
 
-  handleSubmit(event) {
+  handlePasswordChange = (event) =>{
+    this.setState({password:event.target.value});
+  }
+
+  handleAuthorization = (event) => {
+    event.preventDefault();
+
+    Utility.setLogin(this.state.emailID, this.state.password);
+
+    Utility.getAuthorization(function(value, app){
+      try{
+        app.setAuthorize(value);
+      }catch(err){
+        console.error("Login Callback Failed: " + err);
+      }
+    },this);
+  }
+
+  setAuthorize = (response) => {
+    //add some sort of alert if response = true (meaning user is not authorized, 
+    //also maybe add a lockout after certain amount attemps)
+    if(response===false){
+      this.setState({NotAuthorized: true});
+      alert("Incorrect Username / Password");
+    }else{
+      this.setState({NotAuthorized: false});
+    }
+  }
+//-------------------\\
+
+
+  handleSubmit = (event) => {
     //Prevents refresh
     event.preventDefault();
 
@@ -77,7 +110,7 @@ class App extends Component {
     this.dataHandler();
   }
 
-  dataHandler() {
+  dataHandler = () => {
     Utility.getData(function(value, app){
       try{
           app.setData(value);
@@ -88,7 +121,6 @@ class App extends Component {
   }
 
   setData = (data) => {
-    
     var isData = data.length !== 0;
     this.setState({heatMapData: data,
                    dataVersion: this.state.dataVersion + 1,
@@ -97,7 +129,7 @@ class App extends Component {
                    displayPageVisits: isData});
   }
 
-  displayClicks(show) {
+  displayClicks = (show) => {
 		if (!show || this.state.heatMapData.length !== 0) {
 			this.setState({ displayClicks: show });
 		}
@@ -161,7 +193,9 @@ class App extends Component {
       return(
         <div className="Focus-App">
           <div id="sidenav" className="Focus-sidenav">
-            <Login handleAuthorization={this.handleAuthorization} text={this.state.text}/>
+            <Login handleAuthorization={this.handleAuthorization} text={this.state.text} 
+                   password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
+                   handlePasswordChange={this.handlePasswordChange}/>
           </div>
         </div>
       );
