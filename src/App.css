@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: "Trench";
-    src: url("/Users/joshuawilford/Desktop/focusanalytics/src/Font/trench100free.ttf");
+    src: url("./Font/trench100free.ttf");
 }
 
 .Focus-sidenav {
