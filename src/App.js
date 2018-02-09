@@ -58,7 +58,7 @@ class App extends Component {
     endDate: 0
   }
 
-  componentDidMount = ()=> {
+  componentDidMount = () => {
 		this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
 		// window.addEventListener("resize", this.heatmapResizeContoller, false); 
 	}
