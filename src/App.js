@@ -33,7 +33,7 @@ class App extends Component {
       value: false,
       text: 'Focus Analytics',
       NotAuthorized: true,
-      canvasTimeout: false,
+      // canvasTimeout: false,
       password: "",
       emailID:""
       
@@ -58,7 +58,7 @@ class App extends Component {
     endDate: 0
   }
 
-  componentDidMount = ()=> {
+  componentDidMount = () => {
 		this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
 		// window.addEventListener("resize", this.heatmapResizeContoller, false); 
 	}
@@ -159,12 +159,12 @@ class App extends Component {
 		}
 	}
 
-  heatmapResizeContoller() {
-		if(!this.state.canvasTimeout){
-			this.setState({ canvasTimeout : true });
-			setTimeout(this.handleResize, 100); 
-		}
-  }
+  // heatmapResizeContoller() {
+	// 	if(!this.state.canvasTimeout){
+	// 		this.setState({ canvasTimeout : true });
+	// 		setTimeout(this.handleResize, 100); 
+	// 	}
+  // }
   
 
   calendarHandleChangeStart = (date) => {
@@ -224,10 +224,11 @@ class App extends Component {
             dataVersion = {this.state.dataVersion}/>  
           
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
-
-        </div>
+         </div>
+        
           <Heatmap data={this.state.heatMapData} display={this.state.toggleHeat}
                    dataVersion={this.state.dataVersion}/>
+        
       </div>
     );
   }

@@ -82,13 +82,14 @@ class Heatmap extends React.Component{
 
     render(){
         var heatMapClass = 'displayHeat';
+        console
 		if (!this.state.display) {
 			heatMapClass = 'displayNone';
 		}
        return (
-            <div className={heatMapClass} style={{ width: this.state.width, height: this.state.height }}>
-                <ReactHeatmap max={this.state.max} data={this.state.data} unit={"pixels"} />
-            </div>
+           <div className={heatMapClass} key={this.state.key} style={{ width: this.state.width, height: this.state.height }}>
+				<ReactHeatmap max={this.state.max} data={this.state.data} unit={"pixels"} />
+		    </div>
         );
     }
 
