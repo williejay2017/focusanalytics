@@ -82,8 +82,7 @@ class Heatmap extends React.Component{
 
     render(){
         var heatMapClass = 'displayHeat';
-        console
-		if (!this.state.display) {
+        if (!this.state.display) {
 			heatMapClass = 'displayNone';
 		}
        return (
