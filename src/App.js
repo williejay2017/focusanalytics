@@ -9,6 +9,7 @@ import InteractionChart from './InteractionChart.js';
 import GeoChart from './GeoChart.js';
 import Login from './Login.js';
 import ControlPanel from './ControlPanel.js';
+import Table from './Table.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
@@ -33,8 +34,8 @@ class App extends Component {
       value: false,
       text: 'Focus Analytics',
       NotAuthorized: true
-      
-      
+
+
     };
     this.calendarHandleChangeStart = this.calendarHandleChangeStart.bind(this);
     this.calendarHandleChangeEnd = this.calendarHandleChangeEnd.bind(this);
@@ -57,7 +58,7 @@ class App extends Component {
     event.preventDefault();
     //perform authorization here
   this.setState({NotAuthorized: false});
-   
+
   }
 
   handleSubmit(event) {
@@ -82,12 +83,12 @@ class App extends Component {
   }
 
   setData = (data) => {
-    
+
     var isData = data.length !== 0;
     this.setState({heatMapData: data,
                    dataVersion: this.state.dataVersion + 1,
                    toggleHeat: isData,
-                   displayClicks: isData, 
+                   displayClicks: isData,
                    displayPageVisits: isData});
   }
 
@@ -100,7 +101,7 @@ class App extends Component {
 			this.setState({ displayClicks: false });
 		}
   }
-  
+
 	displayPageVisits(show) {
 		if (!show || this.state.heatMapData.length !== 0) {
 			this.setState({ displayPageVisits: show });
@@ -122,7 +123,7 @@ class App extends Component {
 	}
 
 
-  
+
 
   calendarHandleChangeStart = (date) => {
    this.setState({startDate: date});
@@ -131,7 +132,7 @@ class App extends Component {
   calendarHandleChangeEnd = (date) => {
     this.setState({endDate: date});
   }
-  
+
   changeStartTimeValue = (value) => {
     var millisecondPerMin = 60000;
     var millisecondPerHour = 3600000;
@@ -145,7 +146,7 @@ class App extends Component {
   }
 
   render() {
-    
+
     if(this.state.NotAuthorized){
       return(
         <div className="Focus-App">
@@ -164,18 +165,20 @@ class App extends Component {
           <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
             calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
             changeStartTimeValue = {this.changeStartTimeValue}  changeEndTimeValue = {this.changeEndTimeValue}/>
-          
+
           <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
 						heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
-          <br/>  
+          <br/>
           <br/>
           <br/>
           <hr/>
-          <br/>  
-          
+          <br/>
+
+          <Table data={this.state.heatMapData}/>
+
           <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
-            dataVersion = {this.state.dataVersion}/>  
-          
+            dataVersion = {this.state.dataVersion}/>
+
           <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
         </div>

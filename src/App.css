@@ -33,7 +33,7 @@
 
 
 .Focus-sidenav .loginContainer{
-    
+
     display: inline-block;
     vertical-align: top;
     height: 170px; /*needs to be the same height as .controlPanel*/
@@ -155,7 +155,7 @@
     margin-right: 20px;
     width: 200px;
     height: 20px;
-    
+
 }
 
 .Focus-sidenav .toggleSwitch div {
