@@ -1,7 +1,7 @@
 .Focus-App{
     text-align: center;
     font-size: 14px;
-    font-family: 'Helvetica Neue' ;
+    font-family: 'Trench' ;
     line-height: 1.42857;
     color: #FFFFFF;
     height: 100%;
@@ -29,6 +29,23 @@
     transition: 0.5s;
     opacity: 0.2;
     filter: alpha(opacity=50);
+}
+
+.Focus-sidenav .infobar{
+    font-family: 'Trench';
+    font-size: 20px;
+}
+
+
+.Focus-sidenav .infobar ul{
+    list-style-type: none;
+    display: inline-block;
+}
+
+
+.Focus-sidenav .infobar ul li{
+    display: block;
+    padding: 5px 30px;
 }
 
 
@@ -141,15 +158,20 @@
 }
 
 .Focus-sidenav .Ichart{
-    height: 600px;
+    height: 300px;
     width: 600px;
+    margin-left: 5%;
+    
+    border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .Gchart{
-    height: 600px;
+    height: 300px;
     width: 600px;
-    float: right;
-    margin-top: -600px;
+    margin-top: -305px;
+    margin-left: 60%;
+   
+    border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .toggleSwitch{
@@ -191,6 +213,16 @@
 
 .Focus-sidenav .controlPanel h3 {
     color: white;
+}
+
+.Focus-App .displayLoading{
+    color: white;
+    font-size: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -40px;
+    z-index: 100001; /*Must stay same relative to dashboard, heatmap, and displayHelp*/
 }
 
 .Focus-App .displayHeat {
