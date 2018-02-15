@@ -209,12 +209,9 @@ class App extends Component {
       return (
         <div className="Focus-App">
           <div id="sidenav" className="Focus-sidenav">
-            <div className={loadClass}>
-              <Loading type='spin' color='#73AD21' height='100px' width='80px' />
-            </div>
             <Login handleAuthorization={this.handleAuthorization} text={this.state.text}
               password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
-              handlePasswordChange={this.handlePasswordChange} />
+              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} />
           </div>
         </div>
       );

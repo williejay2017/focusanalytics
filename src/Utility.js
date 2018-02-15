@@ -18,33 +18,6 @@ class Utility {
     this.location.reload(true);
   }
 
-    // static processData(data){
-    //     var regionData = [];
-    //     var heatMapData = [];
-    //     var i;
-    //     var type;
-    //     for(i = 0; i < data.length; i++){
-    //         type = data[i].type;
-    //         if(type === 'click'){
-    //             let x = parseInt(data[i].xPosition,10);
-    //             let y = parseInt(data[i].yPosition,10);
-    //             heatMapData.push({x:x,y:y,value:1});
-    //             regionData.push({state: data[i].state, region: data[i].region});
-    //         }
-    //     }
-
-    //     //add more as we see fit (labels etc.)
-    //     var processedData = {
-    //         heatMapData : heatMapData,
-    //         regionData : regionData
-    //     }
-       
-    //     heatMapData = [];
-    //     regionData = [];
-    //     return processedData;
-        
-    // }
-
     static setLogin(loginID,passWord){
         user = {emailID:loginID, 
                 password:passWord, 

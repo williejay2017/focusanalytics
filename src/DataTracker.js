@@ -89,6 +89,7 @@ function toggleDashboard(event) {
     if (event.keyCode === 90 && event.ctrlKey) {
         document.removeEventListener('click', getClickingInformation);
         document.removeEventListener('mousemove', start);
+        document.removeEventListener('mousewheel',start);
         stop();
         document.getElementById("sidenav").style.right = "0px";
         if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
@@ -102,8 +103,8 @@ function toggleDashboard(event) {
     if (event.keyCode === 88 && event.ctrlKey) {
         document.addEventListener('click', getClickingInformation);
         document.addEventListener('mousemove', start);
-        document
-            .getElementById("sidenav").style.right = "-2000px";
+        document.addEventListener('mousewheel', start);
+        document.getElementById("sidenav").style.right = "-2000px";
         if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
             document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
         }
@@ -115,7 +116,6 @@ function toggleDashboard(event) {
 }
 
 function getClickingInformation(event) {
-    var clickEngagement = start();
     var click = new UserInteraction(event, "click", 0);
     interactionContainer.push(JSON.stringify(click));
     storeData();
@@ -141,7 +141,8 @@ function storeData() {
 
 window.addEventListener('load', checkCookie);
 window.addEventListener('keydown', toggleDashboard);
-// window.addEventListener('unload', captureBeforeCloseEvent); temp disabled
-// document.addEventListener('click', getClickingInformation); temp disabled
+window.addEventListener('unload', captureBeforeCloseEvent); 
+document.addEventListener('click', getClickingInformation); 
+document.addEventListener('click', start); 
 document.addEventListener('mousemove', start);
-// document.addEventListener('mousewheel', start);
+document.addEventListener('mousewheel', start);

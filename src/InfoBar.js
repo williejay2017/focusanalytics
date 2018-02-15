@@ -10,7 +10,8 @@ class InfoBar extends Component {
             averageTime: 0,
             totalVisitsPerPeiod: 0,
             newUser: 0, 
-            returningUser: 0 
+            returningUser: 0,
+            activeUsage: 0 
         }
     }
 
@@ -23,9 +24,11 @@ class InfoBar extends Component {
     handleData(dataArray) {
         var totalTimeSpent = 0;
         var myAvgTimeSpent = 0;
+        var avgActiveTimeSpent = 0;
         var totalVisits = 0;
         var totalReturnUser = 0;
         var totalNewUser = 0;
+        var engagedUser = 0;
 
         for (var i = 0; i < dataArray.length; i++) {
             var type = dataArray[i].type;
@@ -33,6 +36,7 @@ class InfoBar extends Component {
             
             if (type === 'visit') {
                 totalTimeSpent += dataArray[i].timeSpent;
+                engagedUser += dataArray[i].engagement;
                 totalVisits++;
             }
 
@@ -46,19 +50,22 @@ class InfoBar extends Component {
 
         if (totalTimeSpent !== 0 && totalVisits !== 0) {
             myAvgTimeSpent = this.milliToTime(totalTimeSpent / totalVisits);
+            avgActiveTimeSpent = this.milliToTime(engagedUser/totalVisits);
 
             this.setState({
                 averageTime: myAvgTimeSpent,
                 totalVisitsPerPeiod: totalVisits,
                 newUser: totalNewUser,
-                returningUser: totalReturnUser
+                returningUser: totalReturnUser,
+                activeUsage: avgActiveTimeSpent
             });
         }else {
             this.setState({
                 averageTime: 0 + " : " + 0 + " : " + 0,
                 totalVisitsPerPeiod: totalVisits,
                 newUser: totalNewUser,
-                returningUser: totalReturnUser
+                returningUser: totalReturnUser,
+                activeUsage: 0 + " : " + 0 + " : " + 0
             });
         }
     }
@@ -69,6 +76,7 @@ class InfoBar extends Component {
         var hours = moment.duration(time).hours();
         var minutes = moment.duration(time).minutes();
         var seconds = moment.duration(time).seconds();
+        var milliseconds = moment.duration(time).milliseconds();
         return (hours + " : " + minutes + " : " + seconds);
     }
 
@@ -77,7 +85,12 @@ class InfoBar extends Component {
             <div className="infobar">
 
                 <ul>
-                    <li> Average Time Spent on Page (Hrs : Mins : Secs)</li>
+                    <li> Average Active Time Spent on Page (Hrs : Mins : Secs)</li>
+                    <li>{this.state.activeUsage}</li>
+                </ul>
+
+                <ul>
+                    <li> Average Total Time Spent on Page (Hrs : Mins : Secs)</li>
                     <li>{this.state.averageTime}</li>
                 </ul>
 
