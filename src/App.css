@@ -1,7 +1,7 @@
 .Focus-App{
     text-align: center;
     font-size: 14px;
-    font-family: 'Helvetica Neue' ;
+    font-family: 'Trench' ;
     line-height: 1.42857;
     color: #FFFFFF;
     height: 100%;
@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: "Trench";
-    src: url("/Users/joshuawilford/Desktop/focusanalytics/src/Font/trench100free.ttf");
+    src: url("./Font/trench100free.ttf");
 }
 
 .Focus-sidenav {
@@ -29,6 +29,23 @@
     transition: 0.5s;
     opacity: 0.2;
     filter: alpha(opacity=50);
+}
+
+.Focus-sidenav .infobar{
+    font-family: 'Trench';
+    font-size: 20px;
+}
+
+
+.Focus-sidenav .infobar ul{
+    list-style-type: none;
+    display: inline-block;
+}
+
+
+.Focus-sidenav .infobar ul li{
+    display: block;
+    padding: 5px 30px;
 }
 
 
@@ -54,7 +71,7 @@
     font-size: 30px;
 }
 
-.Focus-sidenav .loginContainer input[type="text"]{
+.Focus-sidenav .loginContainer input[type="email"]{
     color: black;
     border-radius: 25px;
     height: 20px;
@@ -111,6 +128,8 @@
     color: inherit;
     display: inline-block;
     width: 25%;
+    color: white;
+
 }
 
 .Focus-sidenav input[type="text"] {
@@ -139,15 +158,20 @@
 }
 
 .Focus-sidenav .Ichart{
-    height: 600px;
+    height: 300px;
     width: 600px;
+    margin-left: 5%;
+
+    border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .Gchart{
-    height: 600px;
+    height: 300px;
     width: 600px;
-    float: right;
-    margin-top: -600px;
+    margin-top: -305px;
+    margin-left: 60%;
+
+    border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .toggleSwitch{
@@ -188,7 +212,27 @@
 }
 
 .Focus-sidenav .controlPanel h3 {
-    color: #73AD21;
+    color: white;
+}
+
+.Focus-App .displayLoading{
+    color: white;
+    font-size: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -40px;
+    z-index: 100001; /*Must stay same relative to dashboard, heatmap, and displayHelp*/
+}
+
+.Focus-App .displayHeat {
+    position: relative;
+    z-index: 99998 !important;
+}
+
+.Focus-App .displayNone {
+    display: none;
+    z-index: 0 !important;
 }
 
 
@@ -208,4 +252,34 @@
 
 .react-datepicker__current-month {
   font-size: 1em !important;
+}
+
+.overviewTable {
+  margin: auto;
+  border: 4px solid;
+  max-width: 300px;
+}
+
+.overviewTableAlignment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: auto;
+  max-width: 300px;
+  justify-content: center;
+}
+
+.overviewTableElement {
+  margin: 10px;
+  height: 100px;
+  width: 120px;
+  border: 2px solid;
+}
+
+.overviewTableTitle {
+  width: 100%;
+}
+
+.overviewTableElementFont {
+
 }

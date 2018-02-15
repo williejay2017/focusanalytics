@@ -6,20 +6,49 @@ class Heatmap extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data,
+            data: [],
+            dataVersion: props.dataVersion,
             width: this.getPageWidth(),
-			height: this.getpageHeight(),
+            height: this.getpageHeight(),
+            display: props.display,
+            key: 0,
+            max: 0
         }
     }
     
     componentWillReceiveProps(nextProps) {
-        this.sanitizeData(nextProps.data);
+        var newWidth = this.getPageWidth();
+		var newHeight = this.getpageHeight();
+		if (newWidth !== this.state.width || newHeight !== this.state.height) { //when the window has been re-sized
+			this.setState({
+                display: nextProps.display, 
+                key: this.state.key + 1,
+                width: newWidth, 
+                height: newHeight
+			}); 
+		}
+		
+		else if (nextProps.display !== this.state.display) {
+            this.setState({ display: nextProps.display, 
+                            key: this.state.key + 1 }) 
+		}
+        
+        if (nextProps.dataVersion > this.state.dataVersion) {
+            this.setState({ data: this.sanitizeData(nextProps.data), 
+                            dataVersion: nextProps.dataVersion 
+                        });
+		}
+        // this.sanitizeData(nextProps.data);
 	}
      
     sanitizeData(dataArray){
+        if (!dataArray.length) {
+			return dataArray;
+		}
         var heatMapData = [];
         var i;
         var type;
+        var maximum = 0;
         for(i = 0; i < dataArray.length; i++){
             type = dataArray[i].type;
             if(type === 'click'){
@@ -28,7 +57,15 @@ class Heatmap extends React.Component{
                 heatMapData.push({x:x,y:y,value:1});
             }
         }
-        this.setState({data : heatMapData});
+        
+        if(heatMapData.length > 200){
+			maximum = Math.ceil(heatMapData.length *.05);
+		}else{
+			maximum = 10.0;
+        }
+        
+        this.setState({ max: maximum });
+        return heatMapData;
     }
     
     getPageWidth() {
@@ -44,10 +81,14 @@ class Heatmap extends React.Component{
 
 
     render(){
+        var heatMapClass = 'displayHeat';
+        if (!this.state.display) {
+			heatMapClass = 'displayNone';
+		}
        return (
-            <div style={{ width: this.state.width, height: this.state.height }}>
-                <ReactHeatmap max={5} data={this.state.data} unit={"pixels"} />
-            </div>
+           <div className={heatMapClass} key={this.state.key} style={{ width: this.state.width, height: this.state.height }}>
+				<ReactHeatmap max={this.state.max} data={this.state.data} unit={"pixels"} />
+		    </div>
         );
     }
 

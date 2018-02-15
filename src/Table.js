@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import './App.css';
 
 class Table extends React.Component{
     constructor(props) {
@@ -62,11 +63,22 @@ class Table extends React.Component{
     render(){
        return (
          <div className="overviewTable">
-   				<h3>Overview Statistics</h3>
-          <h4>Average clicks per day: {this.state.clicksPerDay}</h4>
-          <h4>Average visits per day: {this.state.visitsPerDay}</h4>
-          <h4>Average visit length: {this.state.avgVisitLength} seconds</h4>
-   			</div>
+            <div className="overviewTableTitle">
+     				  <h1>Overview Statistics</h1>
+            </div>
+            <div className="overviewTableAlignment">
+              <div className="overviewTableElement">
+                <h4>Average clicks per day:</h4>
+                <h2>{this.state.clicksPerDay}</h2>
+              </div>
+              <div className="overviewTableElement">
+                <h4>Average visits per day: {this.state.visitsPerDay}</h4>
+              </div>
+              <div className="overviewTableElement">
+                <h4>Average visit length: {this.state.avgVisitLength} seconds</h4>
+              </div>
+            </div>
+     			</div>
         );
     }
 
