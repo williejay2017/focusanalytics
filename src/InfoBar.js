@@ -76,7 +76,6 @@ class InfoBar extends Component {
         var hours = moment.duration(time).hours();
         var minutes = moment.duration(time).minutes();
         var seconds = moment.duration(time).seconds();
-        var milliseconds = moment.duration(time).milliseconds();
         return (hours + " : " + minutes + " : " + seconds);
     }
 

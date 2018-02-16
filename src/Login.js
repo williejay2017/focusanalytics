@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from './Loading.js';
+import FBLogin from './FBLogin.js';
 
 class Login extends React.Component {
     constructor(props) {
@@ -8,7 +9,8 @@ class Login extends React.Component {
             text: props.text,
             emailID: props.emailID,
             password: props.password,
-            isLoading: props.isLoading
+            isLoading: props.isLoading,
+            
         }
     }
 
@@ -35,17 +37,21 @@ class Login extends React.Component {
                             type="email"
                             name="email"
                             value={this.state.emailID}
-                            placeholder="Email"
+                            placeholder="Enter Email"
                             onChange={this.props.handleEmailChange}/>
                         <br/>
                         <input
                             type="password"
                             name="password"
                             value={this.state.password}
-                            placeholder="Password"
+                            placeholder="Enter Password"
                             onChange={this.props.handlePasswordChange}/>
                         <br/>
                         <input type="submit" value="Secured Login"/>
+                        <div className="strike">
+                            <span>or</span>
+                        </div>
+                        <FBLogin responseFacebook={this.props.responseFacebook} />
                     </div>
                 </div>
 

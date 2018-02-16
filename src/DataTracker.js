@@ -44,9 +44,9 @@ function checkCookie(event) {
         storeData();
     } else {
         var newUser = new TrackUser("newUser");
+        setCookie("usertype", "returningUser", 365);
         interactionContainer.push(JSON.stringify(newUser));
         storeData();
-        setCookie("usertype", "returningUser", 365);
     }
 }
 
@@ -75,7 +75,7 @@ function setCookie(cname, cvalue, expiredDate) {
 
 function start() {
     interval = setInterval(function () {
-        Date.now() - startTime;
+       Date.now() - startTime;
     }, 100);
     return interval;
 }

@@ -15,6 +15,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -51,6 +52,7 @@ class App extends Component {
     this.displayPageVisits = this.displayPageVisits.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
 
   timeObject = {
@@ -93,7 +95,6 @@ class App extends Component {
   }
 
   setAuthorize = (response) => {
-    //add some sort of alert if response = true (meaning user is not authorized, 
     //also maybe add a lockout after certain amount attemps)
     if (response === false) {
       this.setState({ NotAuthorized: true });
@@ -104,6 +105,14 @@ class App extends Component {
       this.setState({ isLoading: false });
     }
   }
+
+  responseFacebook = (response) => {
+    console.log(response);
+    //need to add facebook username to our backend
+    if(response.status === 'not_authorized'){
+       this.setState({NotAuthorized: false});
+    }
+}
   //-------------------\\
 
 
@@ -211,7 +220,7 @@ class App extends Component {
           <div id="sidenav" className="Focus-sidenav">
             <Login handleAuthorization={this.handleAuthorization} text={this.state.text}
               password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
-              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} />
+              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} responseFacebook={this.responseFacebook} />
           </div>
         </div>
       );
