@@ -10,8 +10,9 @@ class FBLogin extends React.Component {
     render(){
         return(
             <div>
+               < FaFacebookSquare/>
                 <FacebookLogin appId='1897166533928236' autoLoad={false} reAuthenticate={true} fields='name,email,picture' scope="public_profile,user_friends,user_actions.books"
-                 callback={this.props.responseFacebook} cssClass="my-facebook-button-class" icon={<FaFacebookSquare/>} />
+                 callback={this.props.responseFacebook} cssClass="my-facebook-button-class" />
             </div>
         );
     }

@@ -12,7 +12,7 @@ import ControlPanel from './ControlPanel.js';
 import Loading from './Loading.js';
 import InfoBar from './InfoBar.js';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import ElementMapper from './ElementMapper.js';
 
 
 
@@ -36,7 +36,7 @@ class App extends Component {
       value: false,
       text: 'Focus Analytics',
       NotAuthorized: true,
-      // canvasTimeout: false,
+      canvasTimeout: false,
       password: "",
       emailID: ""
 
@@ -53,6 +53,9 @@ class App extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.responseFacebook = this.responseFacebook.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.resizeContoller = this.resizeContoller.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
   }
 
   timeObject = {
@@ -63,8 +66,8 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false });
-    // window.addEventListener("resize", this.heatmapResizeContoller, false); 
+    this.setState({ toggleHeat: false, displayClicks: false, displayPageVisits: false , dataVersion : 1});
+    window.addEventListener("resize", this.resizeContoller, false);
   }
 
   //Login methods\\
@@ -107,12 +110,17 @@ class App extends Component {
   }
 
   responseFacebook = (response) => {
-    console.log(response);
     //need to add facebook username to our backend
-    if(response.status === 'not_authorized'){
+    if(response.status !== 'not_authorized'){
        this.setState({NotAuthorized: false});
     }
 }
+
+  responseGoogle = (response) => {
+    var id_token = response.getAuthResponse().id_token;
+    console.log(response);
+    //anything else you want to do(save to localStorage)...
+  }
   //-------------------\\
 
 
@@ -124,6 +132,7 @@ class App extends Component {
     this.timeObject.startDate = this.state.startDate.startOf('day').valueOf();
     this.timeObject.endDate = this.state.endDate.startOf('day').valueOf();
     Utility.setDates(this.timeObject);
+    ElementMapper.elemMapBuilder();
     this.dataHandler();
   }
 
@@ -136,6 +145,9 @@ class App extends Component {
       }
     }, this);
   }
+
+
+
 
   setData = (data) => {
     var isData = data.length !== 0;
@@ -179,13 +191,21 @@ class App extends Component {
     }
   }
 
-  // heatmapResizeContoller() {
-  // 	if(!this.state.canvasTimeout){
-  // 		this.setState({ canvasTimeout : true });
-  // 		setTimeout(this.handleResize, 100); 
-  // 	}
-  // }
+  handleResize() {
+		ElementMapper.elemMapBuilder();
+    this.setState({ canvasTimeout : false, 
+                    dataVersion : this.state.dataVersion + 1 }); //forces re-draw of the heatmap canvas
+    }
+  
+  resizeContoller() {
+    
+		if(!this.state.canvasTimeout){
+			this.setState({ canvasTimeout : true });
+      setTimeout(this.handleResize, 100); //Resizes once per second
+      
+		}
 
+	}
 
   calendarHandleChangeStart = (date) => {
     this.setState({ startDate: date });
@@ -220,7 +240,8 @@ class App extends Component {
           <div id="sidenav" className="Focus-sidenav">
             <Login handleAuthorization={this.handleAuthorization} text={this.state.text}
               password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
-              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} responseFacebook={this.responseFacebook} />
+              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} responseFacebook={this.responseFacebook} 
+              responseGoogle={this.responseGoogle} />
           </div>
         </div>
       );
@@ -243,8 +264,7 @@ class App extends Component {
             <InfoBar data={this.state.heatMapData} />
             <hr />
 
-            <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}
-              dataVersion={this.state.dataVersion} />
+            <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>
 
             <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 

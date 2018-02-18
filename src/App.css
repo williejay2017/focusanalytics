@@ -53,7 +53,7 @@
     
     display: inline-block;
     vertical-align: top;
-    height: 200px; /*needs to be the same height as .controlPanel*/
+    height: 320px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
     width : 30%; /*other percentage is .controlPanelr*/
     border: 3px solid #73AD21;
@@ -99,7 +99,7 @@
     font-family: 'Trench';
     box-sizing: border-box;
     height: 25px;
-    width: 100px;
+    width: 150px;
     border-radius: 20px;
     border-width: 0px;
     font-size: 15px;
@@ -116,6 +116,19 @@
     color: #FFFFFF;
     height: 25px;
     font-size: 15px;
+    width: 150px;
+   
+}
+
+.Focus-sidenav .loginContainer button.google-login{
+    font-family: 'Trench';
+    border-radius: 20px;
+    border-width: 0px;
+    background-color: red;
+    color: #FFFFFF;
+    height: 25px;
+    font-size: 15px;
+    width: 150px;
 }
 
 .Focus-sidenav:hover {

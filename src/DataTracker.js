@@ -15,10 +15,12 @@ class UserInteraction {
             this.milliSeconds = Date.now();
             this.timeSpent = 0;
             this.engagement = 0;
+            this.htmlelem = [event.target.tagName, event.target.className, event.target.id, event.target.parentElement].toString();
         } else {
             this.milliSeconds = startTime;
             this.timeSpent = Date.now() - startTime;
             this.engagement = activeTime;
+            this.htmlelem = null;
         }
     }
 }
@@ -32,6 +34,7 @@ class TrackUser {
         this.userType = typeOfUser;
         this.milliSeconds = Date.now();
         this.timeSpent = 0;
+        this.htmlelem = null;
     }
 }
 
@@ -41,12 +44,12 @@ function checkCookie(event) {
     if (checkUser !== "") {
         var returnUser = new TrackUser("returningUser");
         interactionContainer.push(JSON.stringify(returnUser));
-        storeData();
+        testStoreData();
     } else {
         var newUser = new TrackUser("newUser");
         setCookie("usertype", "returningUser", 365);
         interactionContainer.push(JSON.stringify(newUser));
-        storeData();
+        testStoreData();
     }
 }
 
@@ -118,14 +121,15 @@ function toggleDashboard(event) {
 function getClickingInformation(event) {
     var click = new UserInteraction(event, "click", 0);
     interactionContainer.push(JSON.stringify(click));
-    storeData();
+    testStoreData();
+    // storeData();
 }
 
 function captureBeforeCloseEvent(event) {
     var sendEngagement = start();
     var visit = new UserInteraction(event, 'visit', sendEngagement);
     interactionContainer.push(JSON.stringify(visit));
-    window.onbeforeunload = storeData();
+   // window.onbeforeunload = storeData();
 }
 
 function storeData() {
@@ -138,7 +142,25 @@ function storeData() {
     stop();
 }
 
+function testStoreData() {
+    var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
+    var json;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var responseData = xhr.responseText;
+           console.log(responseData);
+           
+        }
+        
+    }
+    xhr.open("GET",  'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?params=' + encodedJSON);
+    xhr.send();
+    interactionContainer = [];
+}
 
+// pageUrl
+// milliSeconds
 window.addEventListener('load', checkCookie);
 window.addEventListener('keydown', toggleDashboard);
 window.addEventListener('unload', captureBeforeCloseEvent); 
