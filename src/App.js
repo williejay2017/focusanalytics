@@ -234,6 +234,7 @@ class App extends Component {
             <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
               heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
             <br />
+            <Table data={this.state.heatMapData} />
             <hr />
             <InfoBar data={this.state.heatMapData} />
             <hr />
