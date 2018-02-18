@@ -1,5 +1,8 @@
 import React from 'react';
 import Loading from './Loading.js';
+import FBLogin from './FBLogin.js';
+import GLogin from './GLogin.js';
+import TiLockClosedOutline from 'react-icons/lib/ti/lock-closed-outline';
 
 class Login extends React.Component {
     constructor(props) {
@@ -8,7 +11,8 @@ class Login extends React.Component {
             text: props.text,
             emailID: props.emailID,
             password: props.password,
-            isLoading: props.isLoading
+            isLoading: props.isLoading,
+            
         }
     }
 
@@ -35,17 +39,29 @@ class Login extends React.Component {
                             type="email"
                             name="email"
                             value={this.state.emailID}
-                            placeholder="Email"
+                            placeholder="Enter Email"
                             onChange={this.props.handleEmailChange}/>
                         <br/>
                         <input
                             type="password"
                             name="password"
                             value={this.state.password}
-                            placeholder="Password"
+                            placeholder="Enter Password"
                             onChange={this.props.handlePasswordChange}/>
                         <br/>
+                        <br/>
+                        <TiLockClosedOutline/>
                         <input type="submit" value="Secured Login"/>
+                        <br/>
+                        <br/>
+                        
+                        <div className="strike">
+                            <span>or</span>
+                        </div>
+                        <br/>
+                        <FBLogin responseFacebook={this.props.responseFacebook} />
+                        <br/>
+                        <GLogin responseGoogle={this.props.responseGoogle}/>
                     </div>
                 </div>
 
