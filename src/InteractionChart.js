@@ -9,7 +9,6 @@ class InteractionChart extends React.Component {
         super(props);
         this.state = {
             timeObject: props.timeObject,
-            dataVersion: props.dataVersion,
             chartData: {},
             options: { 
                 title: {

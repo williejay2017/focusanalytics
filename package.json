@@ -13,8 +13,12 @@
     "react": "^15.6.2",
     "react-chartjs-2": "^2.7.0",
     "react-datepicker": "^0.56.0",
-    "react-dom": "^15.6.2",
+    "react-dom": "^15.6.1",
+    "react-facebook-login": "^4.0.0",
+    "react-google-login": "^3.0.4",
+    "react-google-login-component": "^0.9.2",
     "react-heatmap": "^1.0.6",
+    "react-icons": "^2.2.7",
     "react-loading": "^1.0.3",
     "react-scripts": "1.0.14",
     "react-table": "^6.7.6",
@@ -26,5 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-unit": "^3.0.3"
   }
 }
