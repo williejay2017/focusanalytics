@@ -290,33 +290,5 @@ class App extends Component {
       );
   }
 }
-/*
-<div className="Focus-App">
-  <div id="sidenav" className="Focus-sidenav">
-    <div className={loadClass}>
-      <Loading type='spin' color='#73AD21' height='100px' width='80px' />
-    </div>
-    <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
-      calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
-      changeStartTimeValue={this.changeStartTimeValue} changeEndTimeValue={this.changeEndTimeValue} />
-
-    <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
-      heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
-    <br />
-    <hr />
-    <InfoBar data={this.state.heatMapData} />
-    <hr />
-
-    <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>
-
-    <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
-
-  </div>
-
-  <Heatmap data={this.state.heatMapData} display={this.state.toggleHeat}
-    dataVersion={this.state.dataVersion} />
-
-</div>
-*/
 
 export default App;

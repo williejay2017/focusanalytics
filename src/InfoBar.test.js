@@ -1,11 +1,17 @@
 import React from 'react';
-import { render } from 'react-dom';
+import sinon from 'sinon';
+import { mount } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15.4';
+
 import InfoBar from './InfoBar.js';
 
-jest.mock('react-dom');
+Enzyme.configure({ adapter: new Adapter() });
 
-describe('Link', () => {
-  test('should render correctly', () => {
-    const wrapper = shallow(<InfoBar />);
+describe('CalculateAverageActiveTime', () => {
+
+  it('should calculate the correct average wait time for empty json', () => {
+    const wrapper = mount(<InfoBar data={[{"type":"visit","userType":"newUser","totalTimeSpent":"0"}]} />);
   });
+
 });

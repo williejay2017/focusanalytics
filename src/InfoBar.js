@@ -12,7 +12,8 @@ class InfoBar extends Component {
             newUser: 0,
             returningUser: 0,
             activeUsage: 0
-        }
+        };
+        this.handleData = this.handleData.bind(this);
     }
 
 
@@ -83,10 +84,10 @@ class InfoBar extends Component {
         return (
             <div className="infobar">
 
-                    <ul>
-                        <li> Average Active Time on Page</li>
-                        <li>{this.state.activeUsage}</li>
-                    </ul>
+                <ul>
+                    <li> Average Active Time on Page</li>
+                    <li>{this.state.activeUsage}</li>
+                </ul>
 
                 <ul>
                     <li> Average Total Time on Page</li>
