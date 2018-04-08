@@ -12,13 +12,13 @@ class Login extends React.Component {
             emailID: props.emailID,
             password: props.password,
             isLoading: props.isLoading,
-
+            
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({emailID: nextProps.emailID,
-                       password: nextProps.password,
+        this.setState({emailID: nextProps.emailID, 
+                       password: nextProps.password, 
                        isLoading: nextProps.isLoading});
     }
 
@@ -54,7 +54,7 @@ class Login extends React.Component {
                         <input type="submit" value="Secured Login"/>
                         <br/>
                         <br/>
-
+                        
                         <div className="strike">
                             <span>or</span>
                         </div>

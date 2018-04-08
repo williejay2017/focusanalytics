@@ -79,10 +79,6 @@ class App extends Component {
     this.setState({ password: event.target.value });
   }
 
-  handleSignUp = (event) => {
-    console.log("Sign up successful");
-  }
-
   handleAuthorization = (event) => {
     event.preventDefault();
     this.setState({ isLoading: true });
@@ -118,13 +114,11 @@ class App extends Component {
     if(response.status !== 'not_authorized'){
        this.setState({NotAuthorized: false});
     }
-    console.log(response);
 }
 
   responseGoogle = (response) => {
     var id_token = response.getAuthResponse().id_token;
     console.log(response);
-    console.log(response.profileObj.email);
     //anything else you want to do(save to localStorage)...
   }
   //-------------------\\
@@ -199,16 +193,16 @@ class App extends Component {
 
   handleResize() {
 		ElementMapper.elemMapBuilder();
-    this.setState({ canvasTimeout : false,
+    this.setState({ canvasTimeout : false, 
                     dataVersion : this.state.dataVersion + 1 }); //forces re-draw of the heatmap canvas
     }
-
+  
   resizeContoller() {
-
+    
 		if(!this.state.canvasTimeout){
 			this.setState({ canvasTimeout : true });
       setTimeout(this.handleResize, 100); //Resizes once per second
-
+      
 		}
 
 	}
@@ -246,8 +240,8 @@ class App extends Component {
           <div id="sidenav" className="Focus-sidenav">
             <Login handleAuthorization={this.handleAuthorization} text={this.state.text}
               password={this.state.password} emailID={this.state.emailID} handleEmailChange={this.handleEmailChange}
-              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} responseFacebook={this.responseFacebook}
-              responseGoogle={this.responseGoogle} handleSignUp={this.handleSignUp} />
+              handlePasswordChange={this.handlePasswordChange} isLoading={this.state.isLoading} responseFacebook={this.responseFacebook} 
+              responseGoogle={this.responseGoogle} />
           </div>
         </div>
       );
@@ -259,28 +253,21 @@ class App extends Component {
             <div className={loadClass}>
               <Loading type='spin' color='#73AD21' height='100px' width='80px' />
             </div>
-            <div className="topbar">
-              <h1>[insert domain name]</h1>
-            </div>
-            <div className="uiTools">
-            <h3>UI Tools</h3>
-              <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
-                calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
-                changeStartTimeValue={this.changeStartTimeValue} changeEndTimeValue={this.changeEndTimeValue} />
-              <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
-                heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
-            </div>
-            <div className="summaryStatistics">
-            <h3>Summary Statistics</h3>
-                <InfoBar data={this.state.heatMapData} />
-            </div>
-            <div className="graphs">
+            <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
+              calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
+              changeStartTimeValue={this.changeStartTimeValue} changeEndTimeValue={this.changeEndTimeValue} />
+
+            <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
+              heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
+            <br />
+            <hr />
+            <InfoBar data={this.state.heatMapData} />
+            <hr />
+
             <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>
-            <br/>
 
             <GeoChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} />
 
-            </div>
           </div>
 
           <Heatmap data={this.state.heatMapData} display={this.state.toggleHeat}

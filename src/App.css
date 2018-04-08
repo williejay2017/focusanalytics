@@ -31,54 +31,6 @@
     filter: alpha(opacity=50);
 }
 
-.Focus-sidenav .topbar{
-    height: 10%;
-    width:100%;
-    box-sizing: border-box;
-    border: 3px solid #000000;
-    border-radius: 0px;
-}
-
-.Focus-sidenav .uiTools{
-    height: 90%;
-    width: 25%;
-    display: inline-block;
-    top: auto;
-    overflow: auto;
-    box-sizing: border-box;
-    border: 3px solid #000000;
-    border-radius: 0px;
-}
-
-.Focus-sidenav .summaryStatistics{
-    height: 90%;
-    width: 30%;
-    display: inline-block;
-    top: auto;
-    overflow: auto;
-    box-sizing: border-box;
-    border: 3px solid #000000;
-    border-radius: 0px;
-    margin: auto;
-}
-
-.Focus-sidenav .graphs{
-    height: 90%;
-    width: 45%;
-    display: inline-block;
-    top: auto;
-    overflow: auto;
-    box-sizing: border-box;
-    border: 3px solid #000000;
-    border-radius: 0px;
-}
-
-.Focus-sidenav .chart{
-    overflow: auto;
-    height: 60%;
-    position: relative;
-}
-
 .Focus-sidenav .infobar{
     font-family: 'Trench';
     font-size: 20px;
@@ -88,10 +40,6 @@
 .Focus-sidenav .infobar ul{
     list-style-type: none;
     display: inline-block;
-    border: 2px solid #ffffff;
-    border-radius: 0px;
-    width: 80%;
-    margin: 15px;
 }
 
 
@@ -102,7 +50,7 @@
 
 
 .Focus-sidenav .loginContainer{
-
+    
     display: inline-block;
     vertical-align: top;
     height: 320px; /*needs to be the same height as .controlPanel*/
@@ -145,17 +93,6 @@
     border-width: 1px;
 }
 
-.Focus-sidenav .loginContainer input[type=text], select {
-  color: black;
-  border-radius: 25px;
-  height: 20px;
-  width: 180px;
-  box-sizing: border-box;
-  padding: 4px 7px;
-  font-size: 12px;
-  border-width: 1px;
-}
-
 .Focus-sidenav .loginContainer input[type="submit"]{
     color: #FFFFFF;
     background-color:#73AD21;
@@ -180,7 +117,7 @@
     height: 25px;
     font-size: 15px;
     width: 150px;
-
+   
 }
 
 .Focus-sidenav .loginContainer button.google-login{
@@ -216,20 +153,7 @@
     display: inline-block;
     width: 25%;
     color: white;
-}
-
-.Focus-sidenav .inlineBlock {
-    display: inline-block;
-}
-
-.Focus-sidenav .parentElement {
-    white-space: nowrap;
-    overflow-x: auto;
-}
-
-.Focus-sidenav .childElement {
-   display: inline-block;
-   margin-left: 10px;
+    
 }
 
 .Focus-sidenav input[type="text"] {
@@ -261,14 +185,16 @@
     height: 300px;
     width: 600px;
     margin-left: 2%;
+    
     border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .Gchart{
     height: 300px;
     width: 600px;
-    margin-left: 2%;
-    border: 3px solid #73AD21;
+    margin-top: -305px;
+    margin-left: 60%;
+   border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .toggleSwitch{
@@ -276,33 +202,27 @@
     margin-right: 20px;
     width: 200px;
     height: 20px;
-
+    
 }
 
 .Focus-sidenav .toggleSwitch div {
     float: right;
 }
-/*
+
 .Focus-sidenav .controlPanel {
     display: inline-block;
     vertical-align: top;
     overflow: visible;
     box-sizing: border-box;
-    width: 40%;
-    height: 170px;
+    width: 40%; /*other percentage is .dateContainer*/
+    height: 170px; /*needs to be the same height as .dateContainer*/
     padding-left: 30px;
     border: 3px solid #73AD21;
     border-radius: 20px;
     font-family: 'Trench';
     font-size: 17px;
 }
-height needs to be the same height as .dateContainer
-width other percentage is .dateContainer
-*/
 
-.Focus-sidenav .controlPanel {
-    margin:5%;
-}
 
 
 .Focus-sidenav .controlPanel h4 {
@@ -325,7 +245,7 @@ width other percentage is .dateContainer
     top: 50%;
     left: 50%;
     margin: -100px 0 0 -40px;
-    z-index: 100001;
+    z-index: 100001; 
 }
 
 .Focus-App .displayLoginLoading{
@@ -335,12 +255,12 @@ width other percentage is .dateContainer
     top: 50%;
     left: 50%;
     margin: -100px 0 0 -40px;
-    z-index: 100001;
+    z-index: 100001; 
 }
 
 .Focus-App .displayHeat {
     position: relative;
-    z-index: 99998 !important;
+    z-index: 99998 !important; 
 }
 
 .Focus-App .displayNone {
@@ -358,7 +278,7 @@ width other percentage is .dateContainer
 }
 
 .react-datepicker__day-name, .react-datepicker__day {
-  width: 1.5em !important;
+  width: 1.7em !important;
   line-height: 1.7em !important;
   margin: 0.166em !important;
 }
@@ -367,42 +287,13 @@ width other percentage is .dateContainer
   font-size: 1em !important;
 }
 
-.overviewTable {
-  margin: auto;
-  border: 4px solid;
-  max-width: 300px;
-}
-
-.overviewTableAlignment {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: auto;
-  max-width: 300px;
-  justify-content: center;
-}
-
-.overviewTableElement {
-  margin: 10px;
-  height: 100px;
-  width: 120px;
-  border: 2px solid;
-}
-
-.overviewTableTitle {
-  width: 100%;
-}
-
-.overviewTableElementFont {
-
-}
 
 /* ---------------------- */
 .Focus-sidenav .strike {
     display: block;
     text-align: center;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; 
     font-family: 'Trench';
 }
 
