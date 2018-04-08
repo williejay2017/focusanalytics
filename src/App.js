@@ -38,7 +38,8 @@ class App extends Component {
       NotAuthorized: true,
       canvasTimeout: false,
       password: "",
-      emailID: ""
+      emailID: "",
+      analyzeSite: window.location.href
 
 
     };
@@ -253,6 +254,24 @@ class App extends Component {
             <div className={loadClass}>
               <Loading type='spin' color='#73AD21' height='100px' width='80px' />
             </div>
+
+            <div className="topbar">
+              <h1>{this.state.analyzeSite}</h1>
+            </div>
+            <div className="uiTools">
+            <h3>UI Tools</h3>
+              <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
+                calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
+                changeStartTimeValue={this.changeStartTimeValue} changeEndTimeValue={this.changeEndTimeValue} />
+              <ControlPanel heatMapOn={this.state.toggleHeat} clicksOn={this.state.displayClicks} visitsOn={this.state.displayPageVisits}
+                heatMapHandler={this.toggleHeatMap} clicksHandler={this.displayClicks} visitsHandler={this.displayPageVisits} />
+            </div>
+            <div className="summaryStatistics">
+            <h3>Summary Statistics</h3>
+                <InfoBar data={this.state.heatMapData} />
+            </div>
+            <div className="graphs">
+
             <Calendar startDate={this.state.startDate} endDate={this.state.endDate} handleSubmit={this.handleSubmit}
               calendarHandleChangeStart={this.calendarHandleChangeStart} calendarHandleChangeEnd={this.calendarHandleChangeEnd}
               changeStartTimeValue={this.changeStartTimeValue} changeEndTimeValue={this.changeEndTimeValue} />
@@ -263,6 +282,7 @@ class App extends Component {
             <hr />
             <InfoBar data={this.state.heatMapData} />
             <hr />
+
 
             <InteractionChart data={this.state.heatMapData} displayClicks={this.state.displayClicks} displayPageVisits={this.state.displayPageVisits} timeObject={this.state.chartTimeObject}/>
 
