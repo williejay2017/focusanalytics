@@ -129,6 +129,7 @@ function captureBeforeCloseEvent(event) {
     var sendEngagement = start();
     var visit = new UserInteraction(event, 'visit', sendEngagement);
     interactionContainer.push(JSON.stringify(visit));
+    window.onbeforeunload = testStoreData();
    // window.onbeforeunload = storeData();
 }
 

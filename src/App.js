@@ -38,7 +38,8 @@ class App extends Component {
       NotAuthorized: true,
       canvasTimeout: false,
       password: "",
-      emailID: ""
+      emailID: "",
+      analyzeSite: window.location.href
 
 
     };
@@ -260,7 +261,7 @@ class App extends Component {
               <Loading type='spin' color='#73AD21' height='100px' width='80px' />
             </div>
             <div className="topbar">
-              <h1>[insert domain name]</h1>
+              <h1>{this.state.analyzeSite}</h1>
             </div>
             <div className="uiTools">
             <h3>UI Tools</h3>
