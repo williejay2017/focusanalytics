@@ -9,19 +9,18 @@ class InfoBar extends Component {
         this.state = {
             averageTime: 0,
             totalVisitsPerPeiod: 0,
-            newUser: 0,
+            newUser: 0, 
             returningUser: 0,
-            activeUsage: 0
-        };
-        this.handleData = this.handleData.bind(this);
+            activeUsage: 0 
+        }
     }
 
-
+   
     componentWillReceiveProps(nextProps) {
         this.handleData(nextProps.data);
     }
 
-
+   
     handleData(dataArray) {
         var totalTimeSpent = 0;
         var myAvgTimeSpent = 0;
@@ -34,7 +33,7 @@ class InfoBar extends Component {
         for (var i = 0; i < dataArray.length; i++) {
             var type = dataArray[i].type;
             var userType = dataArray[i].userType;
-
+            
             if (type === 'visit') {
                 totalTimeSpent += dataArray[i].timeSpent;
                 engagedUser += dataArray[i].engagement;
@@ -62,22 +61,22 @@ class InfoBar extends Component {
             });
         }else {
             this.setState({
-                averageTime: 0 + " hrs " + 0 + " mins " + 0 + " secs ",
+                averageTime: 0 + " : " + 0 + " : " + 0,
                 totalVisitsPerPeiod: totalVisits,
                 newUser: totalNewUser,
                 returningUser: totalReturnUser,
-                activeUsage: 0 + " hrs " + 0 + " mins " + 0 + " secs "
+                activeUsage: 0 + " : " + 0 + " : " + 0
             });
         }
     }
 
-
+  
     milliToTime(milli) {
         var time = new Moment.duration(milli);
         var hours = moment.duration(time).hours();
         var minutes = moment.duration(time).minutes();
         var seconds = moment.duration(time).seconds();
-        return (hours + " hrs " + minutes + " mins " + seconds + " secs ");
+        return (hours + " : " + minutes + " : " + seconds);
     }
 
     render() {
@@ -85,12 +84,12 @@ class InfoBar extends Component {
             <div className="infobar">
 
                 <ul>
-                    <li> Average Active Time on Page</li>
+                    <li> Average Active Time Spent on Page (Hrs : Mins : Secs)</li>
                     <li>{this.state.activeUsage}</li>
                 </ul>
 
                 <ul>
-                    <li> Average Total Time on Page</li>
+                    <li> Average Total Time Spent on Page (Hrs : Mins : Secs)</li>
                     <li>{this.state.averageTime}</li>
                 </ul>
 
@@ -116,3 +115,4 @@ class InfoBar extends Component {
 }
 
 export default InfoBar;
+

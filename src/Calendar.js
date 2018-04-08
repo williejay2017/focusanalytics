@@ -41,30 +41,26 @@ class Calendar extends React.Component{
 
     render(){
         return(
-            <form onSubmit={this.props.handleSubmit}>
-                <div className="parentElement">
-
-                        <h3 className="childElement">Start Date</h3>
-                        <div className="childElement">
+            <form className="dateContainer" id='dateContainer' onSubmit={this.props.handleSubmit}>
+                <div>
+                    <div className="dateLabel">
+                        <h3>Start Date</h3>
                         <DatePicker
-                            className="childElement"
                             selected={this.state.startDate}
                             selectsStart
                             startDate={this.state.startDate}
                             endDate={this.state.endDate}
                             onChange={this.props.calendarHandleChangeStart}
+
                         />
-                        </div>
-                        <div className="childElement">
-                          <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment}
-                            onChange={this.props.changeStartTimeValue} format={this.format} allowEmpty={false}
-                            showSecond={false} className="childElement" use12Hours hideDisabledOptions />
-                        </div>
-                  </div>
-                    <br></br>
-                  <div className="parentElement">
-                        <h3 className="childElement">End Date</h3>
-                        <div className="childElement">
+                        <br></br>
+                          <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment} 
+                            onChange={this.props.changeStartTimeValue} format={this.format} allowEmpty={false} 
+                            showSecond={false} className="xxx" use12Hours hideDisabledOptions /> 
+                    </div>
+
+                    <div className="dateLabel">
+                        <h3>End Date</h3>
                         <DatePicker
                             selected={this.state.endDate}
                             selectsEnd
@@ -73,21 +69,19 @@ class Calendar extends React.Component{
                             onChange={this.props.calendarHandleChangeEnd}
 
                         />
-                        </div>
-                        <div className="childElement">
-                         <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment}
-                            onChange={this.props.changeEndTimeValue} format={this.format} allowEmpty={false}
-                            showSecond={false} className="xxx" use12Hours hideDisabledOptions />
-                        </div>
-
+                        <br></br>
+                         <TimePicker disabledMinutes={this.disableMinutes} defaultValue={this.currentMoment} 
+                            onChange={this.props.changeEndTimeValue} format={this.format} allowEmpty={false} 
+                            showSecond={false} className="xxx" use12Hours hideDisabledOptions /> 
+                    </div>
 
 
                 </div>
-                <br></br>
+
                 <input type="submit" value="Submit" />
-
-
-
+            
+            
+            
             </form>
         );
     }
