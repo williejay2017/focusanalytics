@@ -19,11 +19,9 @@ class Heatmap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(this.state.dataVersion);
         var newWidth = this.getPageWidth();
 		var newHeight = this.getpageHeight();
 		if (newWidth !== this.state.width || newHeight !== this.state.height) { //when the window has been re-sized
-            console.log("re-draw");
             this.setState({
                 display: nextProps.display, 
                 key: this.state.key + 1,
@@ -38,7 +36,6 @@ class Heatmap extends React.Component {
 		}
 
         if (nextProps.dataVersion > this.state.dataVersion) {
-            console.log("burp2");
             this.setState({
                 data: this.sanitizeData(nextProps.data),
                 dataVersion: nextProps.dataVersion
