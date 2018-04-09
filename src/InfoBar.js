@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
+import ReactTable from 'react-table';
+import "react-table/react-table.css";
 const moment = extendMoment(Moment);
+
 
 class InfoBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            averageTime: 0,
-            totalVisitsPerPeiod: 0,
-            newUser: 0, 
-            returningUser: 0,
-            activeUsage: 0 
+            data: [],
+            
+            columns:[{
+                Header: 'Active Usage',
+                accessor: 'activeUsage'
+            },{
+                Header: 'Total Usage',
+                accessor: 'averageTime'
+            },{
+                Header: 'Page Visits',
+                accessor: 'totalVisitsPerPeiod'
+            },{
+                Header: 'New Users',
+                accessor: 'newUser'
+            },{
+                Header: 'Returning Users',
+                accessor: 'returningUser'
+            }
+        ] 
         }
     }
 
@@ -20,6 +37,7 @@ class InfoBar extends Component {
         this.handleData(nextProps.data);
     }
 
+    
    
     handleData(dataArray) {
         var totalTimeSpent = 0;
@@ -29,6 +47,7 @@ class InfoBar extends Component {
         var totalReturnUser = 0;
         var totalNewUser = 0;
         var engagedUser = 0;
+        
 
         for (var i = 0; i < dataArray.length; i++) {
             var type = dataArray[i].type;
@@ -48,24 +67,25 @@ class InfoBar extends Component {
 
         }
 
+       
+
         if (totalTimeSpent !== 0 && totalVisits !== 0) {
             myAvgTimeSpent = this.milliToTime(totalTimeSpent / totalVisits);
             avgActiveTimeSpent = this.milliToTime(engagedUser/totalVisits);
-
             this.setState({
-                averageTime: myAvgTimeSpent,
+                data:[{averageTime: myAvgTimeSpent,
                 totalVisitsPerPeiod: totalVisits,
                 newUser: totalNewUser,
                 returningUser: totalReturnUser,
-                activeUsage: avgActiveTimeSpent
+                activeUsage: avgActiveTimeSpent}]
             });
         }else {
             this.setState({
-                averageTime: 0 + " : " + 0 + " : " + 0,
+               data:[{ averageTime: 0 + " : " + 0 + " : " + 0,
                 totalVisitsPerPeiod: totalVisits,
                 newUser: totalNewUser,
                 returningUser: totalReturnUser,
-                activeUsage: 0 + " : " + 0 + " : " + 0
+                activeUsage: 0 + " : " + 0 + " : " + 0}]
             });
         }
     }
@@ -81,34 +101,9 @@ class InfoBar extends Component {
 
     render() {
         return (
-            <div className="infobar">
-
-                <ul>
-                    <li> Average Active Time Spent on Page (Hrs : Mins : Secs)</li>
-                    <li>{this.state.activeUsage}</li>
-                </ul>
-
-                <ul>
-                    <li> Average Total Time Spent on Page (Hrs : Mins : Secs)</li>
-                    <li>{this.state.averageTime}</li>
-                </ul>
-
-                <ul>
-                    <li> Page Visits</li>
-                    <li>{this.state.totalVisitsPerPeiod}</li>
-                </ul>
-
-                <ul>
-                    <li> New Users</li>
-                    <li>{this.state.newUser}</li>
-                </ul>
-
-                <ul>
-                    <li> Returning Users</li>
-                    <li>{this.state.returningUser}</li>
-                </ul>
-
-
+            <div >
+                <ReactTable data={this.state.data} columns={this.state.columns} minRows={1} 
+                            showPageSizeOptions={false} showPageJump={false} showPagination={false}/>
             </div>
         );
     }

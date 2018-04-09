@@ -4,8 +4,6 @@
     font-family: 'Trench' ;
     line-height: 1.42857;
     color: #FFFFFF;
-    height: 100%;
-    width: 100%;
 }
 
 @font-face {
@@ -15,15 +13,17 @@
 
 .Focus-sidenav {
     height: 100%;
-    width: 100%;
-    font-family: 'Helvetica Neue' ;
+    width: 600px;
+    font-family: 'Trench';
     position: fixed;
     z-index: 99999; /*Must stay same relative to heatmap, loading, and displayHelp*/
     top: 0;
-    right: -100%;
+    right: -600px;
     box-sizing: border-box;
     padding: 0 7px 5px;
     background-color:gray;
+     border: 5px solid #73AD21;
+     border-radius: 10px;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.5s;
@@ -55,7 +55,7 @@
     vertical-align: top;
     height: 320px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
-    width : 30%; /*other percentage is .controlPanelr*/
+    width : 50%; /*other percentage is .controlPanelr*/
     border: 3px solid #73AD21;
     margin: 200px auto;
     border-radius: 20px;
@@ -140,18 +140,21 @@
     font-family: 'Trench';
     display: inline-block;
     vertical-align: top;
-    height: 170px; /*needs to be the same height as .controlPanel*/
+    height: 150px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
-    width : 40%; /*other percentage is .controlPanelr*/
-    border: 3px solid #73AD21;
-    border-radius: 20px;
-    margin-left: auto;
+    width : 50%; /*other percentage is .controlPanelr*/
+    
+}
+
+.Focus-sidenav .dateContainer h3{
+    color: white;
+    font-size: 20px;
 }
 
 .Focus-sidenav .dateLabel {
     color: inherit;
     display: inline-block;
-    width: 25%;
+    width: 50%;
     color: white;
     
 }
@@ -181,26 +184,27 @@
     padding: 5px 5px 5px 5px;
 }
 
-.Focus-sidenav .Ichart{
+/* .Focus-sidenav .Ichart{
     height: 300px;
-    width: 500px;
+    width: 600px;
     margin-left: 2%;
     border: 3px solid #73AD21;
 }
 
 .Focus-sidenav .Gchart{
     height: 300px;
-    width: 500px;
+    width: 600px;
     margin-left: 2%;
     border: 3px solid #73AD21;
 
-}
+} */
 
 .Focus-sidenav .toggleSwitch{
     margin-bottom: 10px;
     margin-right: 20px;
     width: 200px;
-    height: 20px;
+    float: right;
+    font-size: 15px;
     
 }
 
@@ -209,17 +213,13 @@
 }
 
 .Focus-sidenav .controlPanel {
-    display: inline-block;
-    vertical-align: top;
     overflow: visible;
     box-sizing: border-box;
-    width: 40%; /*other percentage is .dateContainer*/
-    height: 170px; /*needs to be the same height as .dateContainer*/
+    display: inline-block;
+    vertical-align: top;
+    width: 50%; /*other percentage is .dateContainer*/
+    height: 150px; /*needs to be the same height as .dateContainer*/
     padding-left: 30px;
-    border: 3px solid #73AD21;
-    border-radius: 20px;
-    font-family: 'Trench';
-    font-size: 17px;
 }
 
 
@@ -235,6 +235,7 @@
 
 .Focus-sidenav .controlPanel h3 {
     color: white;
+    font-size: 20px;
 }
 
 .Focus-App .displayLoading{

@@ -12,7 +12,8 @@ class Loading extends Component{
                 style : {
                     fontFamily: 'Trench',
                     fontSize: 25,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    color: '#73AD21'
                 }
             }
         }

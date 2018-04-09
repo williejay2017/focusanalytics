@@ -94,7 +94,7 @@ function toggleDashboard(event) {
         document.removeEventListener('mousemove', start);
         document.removeEventListener('mousewheel',start);
         stop();
-        document.getElementById("sidenav").style.right = "0px";
+        document.getElementById("sidenav").style.right = "0";
         if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
             document.getElementsByClassName("react-datepicker")[0].style.display = 'inline-block';
         }
@@ -107,7 +107,7 @@ function toggleDashboard(event) {
         document.addEventListener('click', getClickingInformation);
         document.addEventListener('mousemove', start);
         document.addEventListener('mousewheel', start);
-        document.getElementById("sidenav").style.right = "-2000px";
+        document.getElementById("sidenav").style.right = "-600px";
         if (document.getElementsByClassName("react-datepicker")[0] !== undefined) {
             document.getElementsByClassName("react-datepicker")[0].style.display = 'none';
         }
@@ -164,7 +164,7 @@ function testStoreData() {
 // milliSeconds
 window.addEventListener('load', checkCookie);
 window.addEventListener('keydown', toggleDashboard);
-window.addEventListener('unload', captureBeforeCloseEvent); 
+window.addEventListener('load', captureBeforeCloseEvent); 
 document.addEventListener('click', getClickingInformation); 
 document.addEventListener('click', start); 
 document.addEventListener('mousemove', start);
