@@ -2,6 +2,7 @@
   "name": "focusanalytics",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://williejay2017.github.io/williejay2017.github.io",
   "dependencies": {
     "chart.js": "^2.6.0",
     "heatmap.js": "^2.0.5",
