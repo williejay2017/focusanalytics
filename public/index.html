@@ -1,41 +1,127 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<!DOCTYPE HTML>
+<html lang="en-US">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Focus Analytics</title>
-  </head>
-  <body>
-   <center> <p>Press Control + Z to open Dash, Control + X to close</p></center>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root" style="position: absolute; left: 0; top: 0;"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<title>KinderCaring | Home</title>
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-</html>
+<head>
+<link rel="stylesheet" type="text/css" href="SMed.css">
+<!-- <link rel="stylesheet" type="text/css" href="TN.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+	$("#slideshow > div:gt(0)").hide();
+	setInterval(function() { 
+  		$('#slideshow > div:first')
+    		.fadeOut(3000)
+    		.next()
+    		.fadeIn(3000)
+    		.end()
+    		.appendTo('#slideshow');
+},  3000);
+</script>
+</head>
+
+<body>
+<div id='root'></div>
+<div id="wrap">
+		  <ul class="navbar">
+			 <li><a href="index.html">Home</a></li>
+			 <li><a href="pages/Contact.html">Contact us</a></li>
+			 <li><a href="#">Accreditations</a>
+				<ul>
+				   <li><a href="#">ACC1</a></li>
+				   <li><a href="#">ACC2</a></li>
+				   <li><a href="#">ACC3</a></li>
+				</ul>         
+			 </li>
+			 <li><a href="#">Locations</a>
+				<ul>
+				   <li><a href="#">St. Cloud</a></li>
+				   <li><a href="#">Minneapolis</a></li>
+				   <li><a href="#">Bloomington</a></li>
+				 </ul>         
+			 </li>
+			 <li><a href="#">Enrollment</a></li>
+			 <li><a href="pages/signin.html">Login</a></li>
+		  </ul>
+</div>
+
+
+
+
+
+<header class="logo">
+	<h1>KinderCaring</h1>
+</header>
+
+<nav class="social">
+  <ul>
+    <li><a href="http://www.twitter.com">Twitter<img src="pictures/Twitter.png" style="width:20px";></a></li>
+    <li><a href="http://www.facebook.com">Facebook<img src="pictures/FBICON.png" style="width:20px";></a></li>
+    <li><a href="http://www.instagram.com">Instagram<img src="pictures/Instagram.png" style="width:20px";></a></li>
+    <li><a href="http://www.linkedin.com">Linkedin<img src="pictures/Linkedin.png" style="width:20px";></a></li>
+  </ul>
+</nav>
+
+
+<section class="sec">
+
+
+<h1 class="HDR1">Why choose Kindercare for your child?</h1>
+<p>
+<div id="slideshow" style="float:left;width:300px;height:300px;">
+   <div>
+     <img src="pictures/Child.jpeg" style="width: 300px;height: 300px;">
+   </div>
+   <div>
+     <img src="pictures/Child2.jpeg" style="width: 300px;height: 300px;">
+   </div>
+   <div>
+     <img src="pictures/Child3.jpeg" style="width: 300px;height: 300px;">
+   </div>
+   <div>
+     <img src="pictures/Child4.jpeg" style="width: 300px;height: 300px;">
+   </div>
+   <div>
+     <img src="pictures/Child5.jpeg" style="width: 300px;height: 300px;">
+   </div>
+</div>
+<br>
+<br>
+<!--<br>-->
+<h2 style="font-family:KBZipaDeeDooDah;color:#324F17;">Testimonials</h2>
+<p class="PTest"> - <em>"They have the best staff of any daycare facility I've been with"</em></p>
+<br>
+<p class="PTest"> - <em>"2013, 2014, 2015 Daycare provider leaders in the state"</em></p>
+<br>
+<p class="PTest"> - <em>"My son has learned so much since placing him in Kindercaring"</em></p>
+<br>
+<br>
+<br>
+<br>
+<h2 style="font-family:KBZipaDeeDooDah;color:#324F17;text-align:center;">How we help your child</h2>
+Vivamus facilisis erat sit amet dapibus auctor. Nullam id maximus risus, vel sagittis tellus. Integer eu pretium mauris. Proin eleifend, ex eu feugiat mattis, arcu lorem pretium sapien, sit amet pellentesque libero nibh quis erat. Pellentesque finibus tellus sed neque tincidunt iaculis. Vivamus porttitor mi vitae ipsum pharetra, fermentum placerat tortor convallis. Vivamus id tempus risus, venenatis sagittis justo. Donec tempor massa in ornare eleifend. Donec nec nisi nibh. Mauris ante felis, ultrices at iaculis nec, pretium a nunc. Vivamus augue augue, fermentum vitae varius et, vulputate id magna. Sed tempor maximus quam vel iaculis. Vestibulum elit mi, placerat et sollicitudin sit amet, dictum eget mauris. Nullam a dictum turpis. Mauris suscipit nec ex eget luctus. Pellentesque porttitor vestibulum dui, vitae facilisis lectus convallis quis.
+
+Vestibulum bibendum consequat lorem ut efficitur. Sed consectetur ullamcorper sapien, in efficitur risus. Nulla viverra dictum venenatis. Etiam lacinia varius lectus, at scelerisque ipsum convallis iaculis. Nunc purus est, auctor sit amet ex sit amet, tristique sodales diam. Etiam at dolor elit. Praesent pulvinar blandit imperdiet. Integer scelerisque feugiat quam eu consequat. Etiam viverra malesuada feugiat. Phasellus vel ante aliquam tellus facilisis posuere. Integer tempus sapien vitae posuere consequat. Proin vel lorem vel sapien congue imperdiet ut vel lacus.
+
+In sollicitudin euismod aliquam. Curabitur bibendum molestie aliquam. Vestibulum ante sem, porta in suscipit id, condimentum sed arcu. Curabitur sodales non risus id suscipit. In hac habitasse platea dictumst. Donec vehicula rutrum dapibus. Proin sodales arcu arcu, at mollis erat molestie vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec placerat vestibulum urna, in interdum felis imperdiet et. Maecenas pulvinar velit felis, sit amet commodo quam volutpat at. Curabitur dictum dolor ut nisl egestas, ut suscipit arcu aliquam.
+</p>
+
+<h2 style="font-family:KBZipaDeeDooDah;text-align: center;color:#324F17;">About Kindercaring</h2>
+<p>SVestibulum bibendum consequat lorem ut efficitur. Sed consectetur ullamcorper sapien, in efficitur risus. Nulla viverra dictum venenatis. Etiam lacinia varius lectus, at scelerisque ipsum convallis iaculis. Nunc purus est, auctor sit amet ex sit amet, tristique sodales diam. Etiam at dolor elit. Praesent pulvinar blandit imperdiet. Integer scelerisque feugiat quam eu consequat. Etiam viverra malesuada feugiat. Phasellus vel ante aliquam tellus facilisis posuere. Integer tempus sapien vitae posuere consequat. Proin vel lorem vel sapien congue imperdiet ut vel lacus.
+
+In sollicitudin euismod aliquam. Curabitur bibendum molestie aliquam. Vestibulum ante sem, porta in suscipit id, condimentum sed arcu. Curabitur sodales non risus id suscipit. In hac habitasse platea dictumst. Donec vehicula rutrum dapibus. Proin sodales arcu arcu, at mollis erat molestie vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec placerat vestibulum urna, in interdum felis imperdiet et. Maecenas pulvinar velit felis, sit amet commodo quam volutpat at. Curabitur dictum dolor ut nisl egestas, ut suscipit arc </p>
+</section>
+
+<div id="footer">
+Copyright © Kindercaring, © Joshua Wilford
+</div>
+
+
+
