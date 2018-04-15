@@ -44,12 +44,14 @@ function checkCookie(event) {
     if (checkUser !== "") {
         var returnUser = new TrackUser("returningUser");
         interactionContainer.push(JSON.stringify(returnUser));
-        testStoreData();
+        storeData();
+
     } else {
         var newUser = new TrackUser("newUser");
         setCookie("usertype", "returningUser", 365);
         interactionContainer.push(JSON.stringify(newUser));
-        testStoreData();
+        storeData();
+
     }
 }
 
@@ -121,17 +123,19 @@ function toggleDashboard(event) {
 function getClickingInformation(event) {
     var click = new UserInteraction(event, "click", 0);
     interactionContainer.push(JSON.stringify(click));
-    testStoreData();
-    // storeData();
+    //testStoreData();
+    storeData();
 }
 
 function captureBeforeCloseEvent(event) {
     var sendEngagement = start();
     var visit = new UserInteraction(event, 'visit', sendEngagement);
     interactionContainer.push(JSON.stringify(visit));
-    window.onbeforeunload = testStoreData();
-   // window.onbeforeunload = storeData();
+    //window.onbeforeunload = testStoreData();
+    window.onbeforeunload = storeData();
 }
+
+
 
 function storeData() {
 
@@ -143,25 +147,23 @@ function storeData() {
     stop();
 }
 
-function testStoreData() {
-    var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
-    var json;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var responseData = xhr.responseText;
-           console.log(responseData);
+// function testStoreData() {
+//     var encodedJSON = encodeURIComponent(JSON.stringify(interactionContainer));
+//     var xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState === 4 && xhr.status === 200) {
+//             var responseData = xhr.responseText;
            
-        }
+           
+//         }
         
-    }
-    xhr.open("GET",  'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?params=' + encodedJSON);
-    xhr.send();
-    interactionContainer = [];
-}
+//     }
+//     xhr.open("GET",  'https://czjc3xa9e8.execute-api.us-east-2.amazonaws.com/Production/senddata?params=' + encodedJSON);
+//     xhr.send();
+//     interactionContainer = [];
+// }
 
-// pageUrl
-// milliSeconds
+
 window.addEventListener('load', checkCookie);
 window.addEventListener('keydown', toggleDashboard);
 window.addEventListener('load', captureBeforeCloseEvent); 

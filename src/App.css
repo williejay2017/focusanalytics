@@ -29,6 +29,21 @@
     transition: 0.5s;
     opacity: 0.2;
     filter: alpha(opacity=50);
+    
+}
+
+.Focus-sidenav .legend h5{
+    display: inline-block;
+    margin: 0;
+    box-sizing: border-box;
+    width: 120px;
+}
+
+.Focus-sidenav .color-box {
+    width: 120px;
+    height: 10px;
+    display: inline-block;
+    background-color: #ccc;
 }
 
 .Focus-sidenav .infobar{
@@ -55,7 +70,7 @@
     vertical-align: top;
     height: 320px; /*needs to be the same height as .controlPanel*/
     box-sizing: border-box;
-    width : 50%; /*other percentage is .controlPanelr*/
+    width : 60%; /*other percentage is .controlPanelr*/
     border: 3px solid #73AD21;
     margin: 200px auto;
     border-radius: 20px;
@@ -184,20 +199,6 @@
     padding: 5px 5px 5px 5px;
 }
 
-/* .Focus-sidenav .Ichart{
-    height: 300px;
-    width: 600px;
-    margin-left: 2%;
-    border: 3px solid #73AD21;
-}
-
-.Focus-sidenav .Gchart{
-    height: 300px;
-    width: 600px;
-    margin-left: 2%;
-    border: 3px solid #73AD21;
-
-} */
 
 .Focus-sidenav .toggleSwitch{
     margin-bottom: 10px;
