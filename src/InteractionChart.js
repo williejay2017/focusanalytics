@@ -13,7 +13,7 @@ class InteractionChart extends React.Component {
             options: { 
                 title: {
                     display: true,
-                    text: 'Clicks vs. Visits',
+                    text: 'Interactions By Dates',
                     fontSize: 20,
                     fontColor: '#FFFFFF',
                     fontFamily: 'Trench'

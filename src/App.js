@@ -13,6 +13,8 @@ import Loading from './Loading.js';
 import InfoBar from './InfoBar.js';
 import 'react-datepicker/dist/react-datepicker.css';
 import ElementMapper from './ElementMapper.js';
+import UserMenu from './UserMenu.js';
+import Legend from './Legend.js';
 
 class App extends Component {
   constructor(props) {
@@ -37,9 +39,13 @@ class App extends Component {
       canvasTimeout: false,
       password: "",
       emailID: "",
-      analyzeSite: window.location.href
+      analyzeSite: window.location.href,
+      maxValue: 0
 
     };
+    this.handleLogout = this
+      .handleLogout
+      .bind(this);
     this.calendarHandleChangeStart = this
       .calendarHandleChangeStart
       .bind(this);
@@ -143,13 +149,21 @@ class App extends Component {
   }
 
   responseGoogle = (response) => {
-    var id_token = response
-      .getAuthResponse()
-      .id_token;
     console.log(response);
     //anything else you want to do(save to localStorage)...
   }
   //-------------------\\
+
+  handleLogout = (event) => {
+    event.preventDefault();
+    this.setState({NotAuthorized: true,
+                  toggleHeat: false, 
+                  displayClicks: false, 
+                  displayPageVisits: false,
+                  maxValue:0,
+                  heatMapData:[]
+                });
+  }
 
   handleSubmit = (event) => {
     //Prevents refresh
@@ -185,14 +199,25 @@ class App extends Component {
 
   setData = (data) => {
     var isData = data.length !== 0;
+   
+      var counter = 0;
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].type === 'click') {
+          counter++;
+        }
+      }
+    
     this.setState({
       heatMapData: data,
       dataVersion: this.state.dataVersion + 1,
       toggleHeat: isData,
       displayClicks: isData,
       displayPageVisits: isData,
-      isLoading: false
+      isLoading: false,
+      maxValue: counter
     });
+
+   
   }
 
   displayClicks = (show) => {
@@ -293,6 +318,8 @@ class App extends Component {
               <Loading type='spin' color='#73AD21' height='100px' width='80px'/>
             </div>
             <div className="uiTools">
+              <UserMenu handleLogout={this.handleLogout}/>
+
               <h1>
                 Focus Analytics
               </h1>
@@ -313,36 +340,41 @@ class App extends Component {
                 heatMapHandler={this.toggleHeatMap}
                 clicksHandler={this.displayClicks}
                 visitsHandler={this.displayPageVisits}/>
+            <br/>
+            <br/>
+            <hr/>
+              <Legend maxValue={this.state.maxValue}/>
             </div>
+            <br/>
+            <br/>
             <br/>
             <hr/>
 
             <div className="summaryStatistics">
-              <h3>Summary Statistics for : {this.state.analyzeSite}</h3>
+              <h3>Summary Statistics for :</h3>
+              <h3>{this.state.analyzeSite}</h3>
               <InfoBar data={this.state.heatMapData}/>
             </div>
 
-            
-              <br/>
-              <hr/>
-              <InteractionChart
-                data={this.state.heatMapData}
-                displayClicks={this.state.displayClicks}
-                displayPageVisits={this.state.displayPageVisits}
-                timeObject={this.state.chartTimeObject}/>
-              <br/>
-              <GeoChart
-                data={this.state.heatMapData}
-                displayClicks={this.state.displayClicks}
-                displayPageVisits={this.state.displayPageVisits}/>
-
-            
-        </div>
-
-        <Heatmap
+            <br/>
+            <hr/>
+            <InteractionChart
               data={this.state.heatMapData}
-              display={this.state.toggleHeat}
-              dataVersion={this.state.dataVersion}/>
+              displayClicks={this.state.displayClicks}
+              displayPageVisits={this.state.displayPageVisits}
+              timeObject={this.state.chartTimeObject}/>
+            <br/>
+            <GeoChart
+              data={this.state.heatMapData}
+              displayClicks={this.state.displayClicks}
+              displayPageVisits={this.state.displayPageVisits}/>
+
+          </div>
+
+          <Heatmap
+            data={this.state.heatMapData}
+            display={this.state.toggleHeat}
+            dataVersion={this.state.dataVersion}/>
         </div>
       );
     }
