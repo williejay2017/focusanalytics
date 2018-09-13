@@ -21,18 +21,18 @@ class Heatmap extends React.Component {
     componentWillReceiveProps(nextProps) {
         var newWidth = this.getPageWidth();
 		var newHeight = this.getpageHeight();
-		if (newWidth !== this.state.width || newHeight !== this.state.height) { //when the window has been re-sized
+		if (newWidth !== this.state.width || newHeight !== this.state.height) { 
             this.setState({
                 display: nextProps.display, 
                 key: this.state.key + 1,
                 width: newWidth, 
                 height: newHeight,
-            }); //new key forces re-draw
+            }); 
             
         } 
         
         if (nextProps.display !== this.state.display) {
-			this.setState({ display: nextProps.display, key: this.state.key + 1 }); //new key forces re-draw
+			this.setState({ display: nextProps.display, key: this.state.key + 1 }); 
 		}
 
         if (nextProps.dataVersion > this.state.dataVersion) {
