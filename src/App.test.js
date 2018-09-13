@@ -4,6 +4,12 @@ import { shallow } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15.4';
 import App from './App.js';
+<<<<<<< HEAD
+import Calendar from './Calendar.js';
+import Heatmap from './Heatmap.js';
+
+=======
+>>>>>>> 23cf69e8f1cd8d8bd50d84ab1f3d0eb8b9b02af7
 
 Enzyme.configure({ adapter: new Adapter() });
 
