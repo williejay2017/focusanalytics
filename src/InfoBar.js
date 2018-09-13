@@ -11,7 +11,7 @@ class InfoBar extends Component {
         super(props);
         this.state = {
             data: [],
-            
+
             columns:[{
                 Header: 'Active Usage',
                 accessor: 'activeUsage'
@@ -28,17 +28,17 @@ class InfoBar extends Component {
                 Header: 'Returning Users',
                 accessor: 'returningUser'
             }
-        ] 
+        ]
         }
     }
 
-   
+
     componentWillReceiveProps(nextProps) {
         this.handleData(nextProps.data);
     }
 
-    
-   
+
+
     handleData(dataArray) {
         var totalTimeSpent = 0;
         var myAvgTimeSpent = 0;
@@ -47,12 +47,12 @@ class InfoBar extends Component {
         var totalReturnUser = 0;
         var totalNewUser = 0;
         var engagedUser = 0;
-        
+
 
         for (var i = 0; i < dataArray.length; i++) {
             var type = dataArray[i].type;
             var userType = dataArray[i].userType;
-            
+
             if (type === 'visit') {
                 totalTimeSpent += dataArray[i].timeSpent;
                 engagedUser += dataArray[i].engagement;
@@ -67,7 +67,7 @@ class InfoBar extends Component {
 
         }
 
-       
+
 
         if (totalTimeSpent !== 0 && totalVisits !== 0) {
             myAvgTimeSpent = this.milliToTime(totalTimeSpent / totalVisits);
@@ -90,7 +90,7 @@ class InfoBar extends Component {
         }
     }
 
-  
+
     milliToTime(milli) {
         var time = new Moment.duration(milli);
         var hours = moment.duration(time).hours();
@@ -102,7 +102,7 @@ class InfoBar extends Component {
     render() {
         return (
             <div >
-                <ReactTable data={this.state.data} columns={this.state.columns} minRows={1} 
+                <ReactTable data={this.state.data} columns={this.state.columns} minRows={1}
                             showPageSizeOptions={false} showPageJump={false} showPagination={false}/>
             </div>
         );
@@ -110,4 +110,3 @@ class InfoBar extends Component {
 }
 
 export default InfoBar;
-
